@@ -1,0 +1,98 @@
+/* HEADER */
+#header .header-wrapper:not(.stuck) .header-bg-color {
+  width: 140vw;
+  left: -20vw;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(270deg, var(--primary-medium), var(--tertiary-medium));
+}
+
+#header .header-wrapper:not(.stuck) :is(.menu-item a, .icon-search) {
+  color: #fff;
+}
+
+.large-12 {
+  padding-inline: 1.5em;
+}
+
+.large-12 > .rank-math-breadcrumb :is(a, .last, .separator) {
+  color: black;
+}
+
+/* OTHER */
+.section .col:has(#booking-form),
+.col:has(#shop-sidebar) {
+  position: relative;
+}
+
+.section .col-inner:has(#booking-form),
+#shop-sidebar {
+  position: sticky;
+  top: 90px;
+}
+
+#shop-sidebar .widget {
+  margin: 0;
+}
+
+:is(.widget, .col) #booking-form {
+  padding: 1em;
+  border: 1px solid #eee;
+  border-radius: .625em;
+}
+
+.booking-form__header {
+  text-align: center;
+}
+
+.booking-form__title {
+  font-size: 1.3em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.booking-form__control-wrap .booking-form__error-message {
+  padding-inline: 1em;
+  color: crimson;
+}
+
+.booking-form__control-wrap:has(.booking-form__error-message) :is(input, select) {
+  border-color: crimson;
+}
+
+.booking-form__footer {
+  display: flex;
+  flex-direction: column;
+  gap: .625em;
+}
+
+#booking-form .booking-form__footer > input {
+  display: block;
+  line-height: 1;
+  margin: 0;
+  padding: 1em;
+  min-width: 14em;
+  font-size: 1em;
+  border-radius: 1em;
+  text-transform: capitalize;
+}
+
+input[type='reset'].booking-form__reset-btn {
+  color: var(--primary-medium);
+  border: 1px solid var(--primary-medium);
+}
+
+input[type='reset'].booking-form__reset-btn:hover {
+  color: #fff;
+  background-color: var(--primary-medium);
+}
+
+@media screen and (min-width: 850px) {
+  :is(#content, .category-page-row) .large-9 {
+    max-width: 60%;
+    flex-basis: 60%;
+  }
+  :is(#content, .category-page-row) .large-3 {
+    max-width: 40%;
+    flex-basis: 40%;
+  }
+}

@@ -1,0 +1,88 @@
+/*
+Theme Name: Flatsome Child
+Description: This is a child theme for Flatsome Theme
+Author: Hieu "Jin" Phan Trung
+Template: flatsome
+Version: 1.0.4
+*/
+
+/*************** ADD CUSTOM CSS HERE.   ***************/
+
+/* PROJECT SETUP, VARIABLE DEFINE */
+:root {
+  --primary-lightest: color-mix(in srgb, var(--primary-medium), #fff 70%);
+  --primary-lighter: color-mix(in srgb, var(--primary-medium), #fff 50%);
+  --primary-light: color-mix(in srgb, var(--primary-medium), #fff 30%);
+  --primary-medium: #bf1e2e;
+  --primary-dark: color-mix(in srgb, var(--primary-medium), #000 30%);
+  --primary-darker: color-mix(in srgb, var(--primary-medium), #000 50%);
+  --primary-darkest: color-mix(in srgb, var(--primary-medium), #000 70%);
+
+  --secondary-lightest: color-mix(in srgb, var(--secondary-medium), #fff 70%);
+  --secondary-lighter: color-mix(in srgb, var(--secondary-medium), #fff 50%);
+  --secondary-light: color-mix(in srgb, var(--secondary-medium), #fff 30%);
+  --secondary-medium: #27378e;
+  --secondary-dark: color-mix(in srgb, var(--secondary-medium), #000 30%);
+  --secondary-darker: color-mix(in srgb, var(--secondary-medium), #000 50%);
+  --secondary-darkest: color-mix(in srgb, var(--secondary-medium), #000 70%);
+
+  --tertiary-lightest: color-mix(in srgb, var(--tertiary-medium), #fff 70%);
+  --tertiary-lighter: color-mix(in srgb, var(--tertiary-medium), #fff 50%);
+  --tertiary-light: color-mix(in srgb, var(--tertiary-medium), #fff 30%);
+  --tertiary-medium: #f9a94a;
+  --tertiary-dark: color-mix(in srgb, var(--tertiary-medium), darkred 30%);
+  --tertiary-darker: color-mix(in srgb, var(--tertiary-medium), darkred 50%);
+  --tertiary-darkest: color-mix(in srgb, var(--tertiary-medium), darkred 70%);
+
+  --gray-lightest: color-mix(in srgb, var(--gray-medium), #fff 70%);
+  --gray-lighter: color-mix(in srgb, var(--gray-medium), #fff 50%);
+  --gray-light: color-mix(in srgb, var(--gray-medium), #fff 30%);
+  --gray-medium: #ddd;
+  --gray-dark: color-mix(in srgb, var(--gray-medium), #000 30%);
+  --gray-darker: color-mix(in srgb, var(--gray-medium), #000 50%);
+  --gray-darkest: color-mix(in srgb, var(--gray-medium), #000 70%);
+
+  --base-font: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+.row.row-main {
+  max-width: 100%;
+}
+
+div.row.row.row-collapse {
+  max-width: 1250px;
+}
+
+.row.row:not(.row-collapse) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row.row-main .large-12.col {
+  padding: 0;
+}
+
+.page-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.row .section {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.title-of-section {
+  font-size: 2.25em;
+  text-transform: capitalize;
+}
+
+.title-of-section__high-light {
+  color: var(--primary-medium);
+}
+
+/*************** ALL SCREEN CSS HERE  ***************/
+@media screen and (min-width: 550px) {}
+
+/*************** ADD TABLET AND MOBILE ONLY CSS HERE  ***************/
+@media screen and (max-width: 850px) {}

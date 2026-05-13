@@ -1,0 +1,4 @@
+/.vscode/
+.env
+/not-upload/
+.DS_Store

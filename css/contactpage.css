@@ -1,0 +1,91 @@
+#header:not(:has(.stuck)) {
+  position: fixed;
+}
+
+#header:not(:has(.stuck)) .header-bg-color {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#masthead .header-nav.header-nav-main.nav-right > :is(.menu-item, .header-search) > a {
+  color: #fff;
+  position: relative;
+}
+
+/* ============================
+   |        HERO BANNER       |
+   ============================  */
+.section.hero-banner {
+  height: 48rem;
+  overflow: hidden;
+}
+
+/* ============================
+   |      CONTACT DETAIL      |
+   ============================  */
+.sub-title {
+  margin-bottom: 2em;
+}
+
+.contact-detail {
+  display: grid;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.contact-detail__item {
+  display: grid;
+  gap: .625em;
+}
+
+.contact-detail__item > span:first-child {
+  font-weight: 700;
+}
+
+.wpcf7-form {
+  display: grid;
+  grid-template-areas:
+    "first last"
+    "email email"
+    "message message"
+    "submit submit";
+  gap: 1em;
+  padding: 4em 3em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, .25);
+  border-radius: 2em;
+}
+
+.wpcf7-form .wpcf7-form-control-wrap :is(input, textarea) {
+  border-radius: .625em;
+  margin-bottom: 0;
+}
+
+.wpcf7-form-control-wrap[data-name="first-name"] {
+  grid-area: first;
+}
+
+.wpcf7-form-control-wrap[data-name="last-name"] {
+  grid-area: last;
+}
+
+.wpcf7-form-control-wrap[data-name="your-email"] {
+  grid-area: email;
+}
+
+.wpcf7-form-control-wrap[data-name="your-message"] {
+  grid-area: message;
+}
+
+.wpcf7-form .wpcf7-form-control-wrap input {
+  min-height: 3em;
+}
+
+input[type="submit"].wpcf7-submit {
+  margin: 0;
+  grid-area: submit;
+  border-radius: .625em;
+  min-height: 3em;
+}
+
+.wpcf7-spinner {
+  display: none;
+}

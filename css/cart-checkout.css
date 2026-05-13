@@ -1,0 +1,88 @@
+.wc-block-components-button:not(.is-link).wc-block-components-checkout-place-order-button {
+  border: 1px solid var(--primary-medium);
+  transition: background-color 300ms, color 300ms;
+}
+
+.wc-block-components-button:not(.is-link).wc-block-components-checkout-place-order-button:hover {
+  color: #fff;
+  background-color: var(--primary-medium);
+}
+
+.wc-block-components-totals-item.wc-block-components-totals-fees {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.wc-block-components-totals-item > .wc-block-components-totals-item__value {
+  justify-self: end;
+  align-self: center;
+}
+
+.wc-block-components-totals-item > .wc-block-components-totals-item__description {
+  grid-column: 1 / span 2;
+}
+
+#masthead .header-nav.header-nav-main.nav-right > .html > a {
+  color: hsla(0, 0%, 40%, .85);
+}
+
+/* ============================
+   |       CHECKOUT PAGE      |
+   ============================  */
+.form-checkout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+}
+
+.customer-details__billing, .customer-details__pickup {
+  margin-bottom: 1em;
+}
+
+.customer-details__billing .billing-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.billing-fields > .billing-field__wrapper > input, #billing_address_1 {
+  margin-bottom: 0;
+  height: auto;
+  line-height: 1;
+  padding-block: 1em;
+}
+
+.billing-field__wrapper:is(.billing_email, .billing_phone) {
+  grid-column: 1 / span 2;
+}
+
+.billing-field__wrapper {
+  position: relative;
+}
+
+.billing-field__wrapper .billing-field__label {
+  position: absolute;
+  left: .625em;
+  top: .9em;
+  color: var(--gray-darker);
+  display: flex;
+  gap: .3125em;
+  padding-inline: .3125em;
+  transition: top 300ms, background-color 300ms 150ms;
+}
+
+.billing-field__label .required {
+  color: crimson;
+}
+
+.billing-field__wrapper:has(input:not([value=""])) .billing-field__label,
+.billing-field__wrapper:has(input:focus) .billing-field__label {
+  top: -.8em;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 850px) {
+  .form-checkout {
+    grid-template-columns: 1fr;
+  }
+}

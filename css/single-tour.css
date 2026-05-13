@@ -1,0 +1,140 @@
+#content {
+  container: content / inline-size;
+}
+
+section:not(.hero-banner) .section-inner {
+  max-width: 1230px;
+  margin-inline: auto;
+  padding-block: 5em 2em;
+}
+
+/* HIDE STUCK HEADER */
+.header-wrapper.stuck {
+  display: none;
+}
+
+/* ===========================
+   |       HERO BANNER       |
+   =========================== */
+.hero-banner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-banner img {
+  width: 100%;
+  height: 35em;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero-banner:before {
+  position: absolute;
+  content: '';
+  display: block;
+  inset: 0;
+  background-color: rgba(0, 0, 0, .25);
+  z-index: 2;
+}
+
+/* ===========================
+   |     TITLE & GALLERY     |
+   =========================== */
+.title-gallery .page-title {
+  font-size: 2.75em;
+  margin-bottom: 1em;
+}
+
+.title-gallery .tour-time-capacity {
+  display: flex;
+  gap: 5em;
+  margin-bottom: 2em;
+}
+
+.title-gallery .tour-time-capacity__title {
+  display: flex;
+  align-items: center;
+  gap: .3125em;
+}
+
+.title-gallery .tour-time-capacity__content {
+  font-size: .825em;
+}
+
+/* Hide scroll bar when full gallery show */
+html.gallery-show {
+  overflow: hidden;
+}
+
+.tour-gallery__previews {
+  --gallery-gap: 1em;
+  --img-width: 65%;
+  display: grid;
+  grid-template-columns: calc(var(--img-width) - var(--gallery-gap)) repeat(2, calc((100% - var(--img-width)) / 2 - var(--gallery-gap) / 2));
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gallery-gap);
+  position: relative;
+}
+
+.tour-gallery__toggle-btn {
+  position: absolute;
+  bottom: 2em;
+  left: 2em;
+  background: var(--gray-lighter);
+  border-radius: .3125em;
+  padding: .625em 1em;
+  display: flex;
+  align-items: center;
+  gap: .3125em;
+}
+
+.previews__item {
+  border-radius: 1.25em;
+  overflow: hidden;
+}
+
+.previews__item:nth-of-type(1) {
+  grid-row: 1/span 2;
+}
+
+.previews__item img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.tour-gallery__dialog {
+  position: relative;
+  padding: 0;
+  margin: auto;
+  border: 0;
+  width: 60%;
+}
+
+::backdrop {
+  background: rgba(0, 0, 0, .65);
+}
+
+.tour-gallery__dialog-close-btn {
+  position: absolute;
+  color: #fff;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.tour-gallery__dialog-close-btn:hover > .dashicons {
+  color: var(--primary-medium);
+}
+
+.tour-gallery__dialog-close-btn > .dashicons {
+  font-size: 4em;
+  display: block;
+  width: auto;
+  height: auto;
+  transition: color 300ms;
+}
+
+/* ===========================
+   |       HERO BANNER       |
+   =========================== */

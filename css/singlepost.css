@@ -1,0 +1,28 @@
+/* #header:not(:has(.stuck)) {
+  position: fixed;
+} */
+
+#header:not(:has(.stuck)) .header-bg-color {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#masthead .header-nav.header-nav-main.nav-right > :is(.menu-item, .header-search) > a {
+  color: #fff;
+  position: relative;
+}
+
+.page-title {
+  top: 100px;
+  height: 35em;
+  display: grid;
+}
+
+.page-title > .page-title-inner {
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+}
+
+.page-title .rank-math-breadcrumb {
+  width: 100%;
+}

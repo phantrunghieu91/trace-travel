@@ -1,0 +1,72 @@
+.feedback {
+  display: grid;
+  gap: 1em;
+  background-color: var(--gray-lightest);
+  padding: 2em 1em;
+  border-radius: 1em;
+}
+
+.feedback__rate-stars {
+  display: flex;
+  justify-content: center;
+  gap: .5em;
+  fill: var(--gray-dark);
+}
+
+.feedback__rate-star--shiny svg path {
+  fill: var(--tertiary-light);
+}
+
+.feedback__message {
+  display: grid;
+  grid-template-rows: 0fr auto;
+  gap: .3125em;
+  transition: grid-template-rows 500ms;
+}
+
+.feedback__message--show-more {
+  grid-template-rows: 1fr auto;
+}
+
+.feedback__message-inner {
+  --message-line-height: 1.2em;
+  line-height: var(--message-line-height, 1.2em);
+  overflow: hidden;
+  min-height: calc(var(--message-line-height) * 3);
+  text-align: center;
+}
+
+.feedback__message-toggle-btn {
+  text-align: center;
+  cursor: pointer;
+}
+
+.feedback__meta {
+  display: grid;
+  place-items: center;
+  gap: .5em;
+}
+
+.feedback__avatar {
+  max-width: 64px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.feedback__name, .feedback__job {
+  line-height: 1;
+}
+
+.feedback__name {
+  font-weight: 600;
+}
+
+.feedback__job {
+  font-size: .825em;
+  font-style: italic;
+}
+
+.swiper-pagination {
+  padding-block: .5em;
+  position: static;
+}
