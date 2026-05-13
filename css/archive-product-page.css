@@ -50,6 +50,25 @@
   text-transform: uppercase;
 }
 
+.booking-form__add-ons label {
+  display: flex;
+  align-items: center;
+}
+
+.booking-form__add-ons input {
+  margin: 0;
+}
+
+#booking-form .add-on__prices {
+  margin-left: auto;
+  display: flex;
+}
+
+#booking-form .add-on__prices span.hide {
+  opacity: 0;
+  width: 0;
+}
+
 .booking-form__control-wrap .booking-form__error-message {
   padding-inline: 1em;
   color: crimson;

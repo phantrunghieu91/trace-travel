@@ -194,7 +194,7 @@ if (have_posts()):
                           <?php echo wc_price($col['price']); ?>
                         </div>
                       </div>
-                    <? endforeach; ?>
+                    <?php endforeach; ?>
                   </div>
                 </div>
               </div>
