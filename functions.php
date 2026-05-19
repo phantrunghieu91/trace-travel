@@ -13,6 +13,12 @@ include get_theme_file_path('js/register.php');
 include get_theme_file_path('css/register.php');
 include get_theme_file_path('api/register.php');
 
+// * Add socials media to footer
+add_action('wp_footer', function () {
+  echo do_shortcode('[socials_media]');
+});
+
+// ! WOOCOMMERCE SECTION
 // remove validate of billing country and billing town
 add_filter('woocommerce_default_address_fields', function ($address_fields) {
   // dd($address_fields);
@@ -29,7 +35,12 @@ add_filter('woocommerce_order_get_formatted_billing_address', function ($address
   return $formatted_address;
 }, 10, 2);
 
-// * Add socials media to footer
-add_action('wp_footer', function(){
-  echo do_shortcode('[socials_media]');
-});
+// Replace empty price text
+function gpw_change_empty_price($price, $product)
+{
+  if ($price == '') {
+    return __('Contact', 'gpw');
+  }
+  return $price;
+}
+add_filter('woocommerce_get_price_html', 'gpw_change_empty_price', 10, 2);
