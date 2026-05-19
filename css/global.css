@@ -1,0 +1,117 @@
+.line-clamp {
+  --_font-size: clamp( 0.875rem, 2vw, 1rem);
+  --_line-height: 1.5;
+  --_line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--_line-clamp);
+  overflow: hidden;
+  text-wrap: pretty;
+  font-size: var(--_font-size);
+  line-height: var(--_line-height);
+
+  @container style(--_fixed-height: true) {
+    height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp));
+  }
+}
+/* ================= */
+/* = Product card  = */
+/* ================= */
+.product-card {
+  --_transition-duration: 250ms;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card__header {
+  position: relative;
+}
+
+.product-card__category {
+  padding: 0.5rem 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  transition: color var(--_transition-duration);
+}
+
+.product-card__category:hover {
+  color: var(--secondary-lightest);
+}
+
+.product-card__thumbnail {
+  z-index: 1;
+  display: block;
+  aspect-ratio: 3/2;
+  overflow: hidden;
+}
+
+.product-card__thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: transform var(--_transition-duration);
+}
+
+.product-card__thumbnail:hover img {
+  transform: scale(1.1);
+}
+
+.product-card__content {
+  --_fixed-height: true;
+
+  flex: 1 0 auto;
+  padding: .9375rem 1.25rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card__title {
+  --_font-size: clamp( 1rem, 2.5vw, 1.25rem );
+  --_line-height: 1.4;
+}
+
+.product-card__title a {
+  color: var(--primary-medium);
+
+  &:hover {
+    color: var(--secondary-medium);
+  }
+}
+
+.product-card__price-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: .625rem;
+}
+
+.product-card__view-detail {
+  display: block;
+  padding: .3125rem .75rem;
+  background-color: var(--primary-medium);
+  color: #fff;
+
+  transition: background-color var(--_transition-duration);
+
+  &:hover {
+    background-color: var(--gray-darkest);
+    color: #fff;
+  }
+}
