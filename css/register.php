@@ -1,10 +1,12 @@
 <?php
 add_action('wp_enqueue_scripts', function () {
   wp_enqueue_style('header-footer', get_stylesheet_directory_uri() . '/css/header-footer.css', [], '1.0.0', 'all');
+  wp_enqueue_style('global', get_stylesheet_directory_uri() . '/css/global.css', [], time(), 'all');
+  wp_enqueue_style( 'material-symbols-outlined', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined', [], null, 'all');
   if (is_front_page()) {
     wp_enqueue_style('swiper', get_stylesheet_directory_uri() . '/css/swiper-bundle.min.css', [], '11.0.5', 'all');
     wp_enqueue_style('feedback', get_stylesheet_directory_uri() . '/css/feedback.css', [], '1.0.0', 'all');
-    wp_enqueue_style('homepage', get_stylesheet_directory_uri() . '/css/homepage.css', [], '0.0.5', 'all');
+    wp_enqueue_style('homepage', get_stylesheet_directory_uri() . '/css/homepage.css', [], time(), 'all'); // 0.0.5
     wp_enqueue_style('booking-form', get_stylesheet_directory_uri() . '/css/booking-form.css', [], '0.0.1', 'all');
   }
   if (is_product()) {

@@ -128,172 +128,53 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
 }
 
 .featured-trips {
-  display: grid;
-  gap: 2em;
+  container-type: inline-size;
   margin-bottom: 2em;
 }
 
-.featured-trips__tab-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: .625rem;
+.featured-trips .swiper-slide {
+  --_slides-per-view: 1;
+  --_space-between: 0rem;
+  height: auto;
+  width: calc( ( 100% - ( var(--_slides-per-view) - 1 ) * var(--_space-between) ) / var(--_slides-per-view) );
+  margin-right: var(--_space-between);
 }
 
-.featured-trips__tab-nav-item {
-  line-height: 1;
-  padding: .625em 1.25em;
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  color: var(--gray-darkest);
-  transition: background-color 300ms, color 300ms;
-  border-radius: 1em;
+@container ( width <= 850px ) {
+  .featured-trips :is(.swiper-button-prev, .swiper-button-next) {
+    display: none;
+  }
 
-  &:hover {
-    color: #fff;
-    background-color: var(--primary-light);
+  .featured-trips .swiper-wrapper {
+    flex-direction: column;
+    row-gap: 1.25rem;
+  }
+
+  .product-card {
+    display: grid;
+    grid-template-columns: 40% minmax(0, 1fr);
+  }
+
+  .product-card__thumbnail {
+    aspect-ratio: unset;
+    height: 100%;
+  }
+
+  .product-card__price-wrapper {
+    flex-wrap: wrap;
   }
 }
 
-.featured-trips__tab-nav-item--active {
-  background-color: var(--primary-medium);
-  color: #fff;
-  font-weight: 700;
-}
-
-.featured-trips__tab-pane {
-  display: none;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2em;
-}
-
-.featured-trips__tab-pane.featured-trips__tab-pane--active {
-  display: grid;
-}
-
-.featured-trip {
-  border-radius: 1em;
-  overflow: hidden;
-  box-shadow: 0 0 .625em rgba(0, 0, 0, .25);
-  display: flex;
-  flex-direction: column;
-}
-
-.featured-trip__img {
-  width: 100%;
-  display: inline-block;
-}
-
-.featured-trip__img>img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-}
-
-.featured-trip__content {
-  background-color: #fff;
-  padding: clamp(.625rem, 2vw, 2rem);
-  display: grid;
-  flex: 1;
-  gap: .625em;
-}
-
-.featured-trip__title h3 {
-  font-size: clamp(1rem, 3vw, 1.6rem);
-  transition: color 300ms;
-  color: var(--primary-medium);
-  margin-bottom: 0;
-}
-
-.featured-trip__title:hover h3 {
-  color: var(--gray-darkest);
-}
-
-.featured-trip__icons {
-  display: flex;
-  flex-flow: row wrap;
-  gap: clamp( .25rem, 1vw, .625rem);
-  margin-top: auto;
-}
-
-.featured-trip__icon {
-  display: flex;
-  align-items: center;
-  gap: .3125em;
-}
-
-.featured-trip__icon>span {
-  font-size: .9em;
-  text-transform: capitalize;
-}
-
-.featured-trip__icon>img {
-  width: 2em;
-}
-
-.featured-trip__price-wrapper {
-  justify-self: end;
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: end;
-  gap: .3125rem;
-  justify-items: end;
-}
-
-.featured-trip__price-wrapper > span:first-child {
-  grid-column: span 2;
-}
-
-.featured-trip__price-wrapper>span {
-  font-size: clamp(.875rem, 2vw, 1rem);
-  line-height: 1;
-  text-transform: capitalize;
-  font-weight: bold;
-}
-
-.featured-trip__price-wrapper .amount {
-  font-size: 1.3em;
-  color: var(--primary-medium);
-}
-
-.featured-trip__book-btn {
-  padding: 1.25em;
-  display: block;
-  text-align: center;
-  background: var(--primary-medium);
-  color: #fff;
-  font-weight: 600;
-  margin-bottom: 0;
-  transition: background-color 300ms;
-}
-
-.featured-trip__book-btn:hover {
-  color: #fff;
-  background-color: var(--gray-darkest);
-}
-
-
-@container content (width < 850px) {
-  .featured-trips__tab-pane {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  .featured-trip__price-wrapper {
-    justify-self: start;
-    display: inline-block;
-  }
-}
-
-@container content (width < 430px) {
-  .featured-trip__icons {
-
+@container ( width > 850px ) {
+  .featured-trips .swiper-slide {
+    --_slides-per-view: 4;
+    --_space-between: 1.25rem;
   }
 }
 
 /* ============================
    |       FEATURED IN        |
    ============================  */
-.featured-in .section-content {}
-
 .homepage-gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
