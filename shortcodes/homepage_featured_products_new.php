@@ -1,9 +1,12 @@
 <?php
-add_shortcode('homepage_featured_products', function () {
+add_shortcode('homepage_featured_products', function ( $atts ) {
+  extract( shortcode_atts( [
+    'prd_cat_id' => 0,
+  ], $atts ));
   $products = wc_get_products([
     'status' => 'publish',
     'limit' => 6,
-    'product_category_id' => [ 18 ],
+    'product_category_id' => [ $prd_cat_id ],
   ]);
   ob_start();
   ?>
