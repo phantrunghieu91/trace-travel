@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function (docEv) {
+  // * Feedback section
   const feedbackSwiper = new Swiper('.feedbacks.swiper', {
     loop: true,
     slidesPerView: 1,
@@ -24,8 +25,6 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
       type: 'bullets',
     },
   });
-
-  // read more toggle button
   document.querySelectorAll('.feedback__message-toggle-btn').forEach(btn => {
     btn.addEventListener('click', toggleEvent => {
       toggleEvent.preventDefault();
@@ -38,28 +37,6 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
         btn.textContent = 'Read less';
       }
     });
-  });
-
-  // Gallery dialog toggle
-  document.querySelector('.homepage-gallery__open-dialog-btn')?.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    document.querySelector(`${this.getAttribute('data-dialog')}`).showModal();
-    document.documentElement.classList.add('homepage-gallery-showing');
-  });
-
-  const gallerySwiper = new Swiper('#homepage-gallery__dialog > .swiper', {
-    slidesPerView: 1,
-    loop: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-
-  document.querySelector('#homepage-gallery__dialog > .dialog__close-btn')?.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    document.querySelector(`${this.getAttribute('data-dialog')}`).close();
-    document.documentElement.classList.remove('homepage-gallery-showing');
   });
 
   // * featured trips Tabs
