@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function (docEv) {
-  const swiper = new Swiper('.feedbacks.swiper', {
+  const feedbackSwiper = new Swiper('.feedbacks.swiper', {
     loop: true,
     slidesPerView: 1,
     autoplay: {
@@ -64,36 +64,48 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
 
   // * featured trips Tabs
   const featuredTrips = {
-    self: document.querySelector('.featured-trips'),
-    tabs: document.querySelectorAll('.featured-trips__tab-nav-item'),
-    panes: document.querySelectorAll('.featured-trips__tab-pane'),
-
-    init: function() {
-      this.tabs.forEach(tab => {
-        tab.addEventListener('click', this.tabClickHandler.bind(this));
-      });
-    },
-
-    tabClickHandler: function(evt) {
-      evt.preventDefault();
-     
-      const _self = evt.currentTarget;
-
-      if(_self.classList.contains('.featured-trips__tab-nav-item--active')) {
+    init() {
+      this.swiperEl = document.querySelector('.featured-trips .swiper');
+      if( !this.swiperEl ) {
+        console.warn( 'HOME PAGE: Can NOT find featured trips swiper element!' );
         return;
       }
-
-      this.removeActiveTabAndPane();
-      _self.classList.add('featured-trips__tab-nav-item--active');
-
-      const target = _self.dataset.target;
-      
-      this.self.querySelector(`#${target}`).classList.add('featured-trips__tab-pane--active');
+      this.initObserver();
     },
-    removeActiveTabAndPane: function() {
-      this.self.querySelector('.featured-trips__tab-nav-item--active').classList.remove('featured-trips__tab-nav-item--active');
-      this.self.querySelector('.featured-trips__tab-pane--active').classList.remove('featured-trips__tab-pane--active');
+    initObserver() {
+      let swiper = null;
+      const observer = new ResizeObserver( (entries) => {
+        const entry = entries[0];
+        const isLargeScreen = entry.contentRect.width > 850;
+        if( isLargeScreen ) {
+          if( !swiper ) {
+            swiper = this.initSwiper();
+          }
+        } else {
+          if( swiper ) {
+            swiper.destroy();
+            swiper = null;
+          }
+        }
+      } );
+      observer.observe( this.swiperEl );
+    },
+    initSwiper() {
+      if( typeof Swiper === 'undefined' ) {
+        console.warn( 'HOME PAGE: Swiper library is missing!' );
+        return;
+      }
+      return new Swiper( this.swiperEl, {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        initialSlide: 2,
+        centeredSlides: true,
+        loop: true,
+        navigation: {
+          nextEl: '.featured-trips .swiper-button-next',
+          prevEl: '.featured-trips .swiper-button-prev',
+        }
+      });
     }
   }.init();
-
 });

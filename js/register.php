@@ -2,7 +2,7 @@
 add_action('wp_enqueue_scripts', function () {
   if (is_front_page()) {
     wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', array ('jquery'), '11.0.5', true);
-    wp_enqueue_script('homepage', get_stylesheet_directory_uri() . '/js/homepage.js', array ('jquery'), '0.0.0', true);
+    wp_enqueue_script('homepage', get_stylesheet_directory_uri() . '/js/homepage.js', array ('jquery'), '1.0.0', true);
   }
   if (is_product()) {
     wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', array ('jquery'), '11.0.5', true);
