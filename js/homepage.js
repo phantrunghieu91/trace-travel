@@ -42,46 +42,50 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
   // * featured trips Tabs
   const featuredTrips = {
     init() {
-      this.swiperEl = document.querySelector('.featured-trips .swiper');
-      if( !this.swiperEl ) {
+      this.swiperEls = [...document.querySelectorAll('.featured-trips .swiper')];
+      if( !this.swiperEls ) {
         console.warn( 'HOME PAGE: Can NOT find featured trips swiper element!' );
         return;
       }
       this.initObserver();
     },
     initObserver() {
-      let swiper = null;
+      let swipers = [];
       const observer = new ResizeObserver( (entries) => {
         const entry = entries[0];
         const isLargeScreen = entry.contentRect.width > 850;
         if( isLargeScreen ) {
-          if( !swiper ) {
-            swiper = this.initSwiper();
+          if( swipers.length == 0 ) {
+            swipers = this.initSwiper();
           }
         } else {
-          if( swiper ) {
-            swiper.destroy();
-            swiper = null;
+          if( swipers.length > 0 ) {
+            swipers.forEach( instance => {
+              instance.destroy();
+            });
+            swipers = [];
           }
         }
       } );
-      observer.observe( this.swiperEl );
+      observer.observe( this.swiperEls[0] );
     },
     initSwiper() {
       if( typeof Swiper === 'undefined' ) {
         console.warn( 'HOME PAGE: Swiper library is missing!' );
         return;
       }
-      return new Swiper( this.swiperEl, {
-        slidesPerView: 4,
-        spaceBetween: 20,
-        initialSlide: 2,
-        centeredSlides: true,
-        loop: true,
-        navigation: {
-          nextEl: '.featured-trips .swiper-button-next',
-          prevEl: '.featured-trips .swiper-button-prev',
-        }
+      return this.swiperEls.map( swiperEl => {
+        return new Swiper( swiperEl, {
+          slidesPerView: 4,
+          spaceBetween: 20,
+          initialSlide: 2,
+          centeredSlides: true,
+          loop: true,
+          navigation: {
+            nextEl: '.featured-trips .swiper-button-next',
+            prevEl: '.featured-trips .swiper-button-prev',
+          }
+        }) 
       });
     }
   }.init();
