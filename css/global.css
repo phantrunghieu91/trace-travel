@@ -19,9 +19,9 @@
   --tertiary-lighter: color-mix(in srgb, var(--tertiary-medium), #fff 50%);
   --tertiary-light: color-mix(in srgb, var(--tertiary-medium), #fff 30%);
   --tertiary-medium: #cfbb98;
-  --tertiary-dark: color-mix(in srgb, var(--tertiary-medium), darkred 30%);
-  --tertiary-darker: color-mix(in srgb, var(--tertiary-medium), darkred 50%);
-  --tertiary-darkest: color-mix(in srgb, var(--tertiary-medium), darkred 70%);
+  --tertiary-dark: color-mix(in srgb, var(--tertiary-medium), #333 30%);
+  --tertiary-darker: color-mix(in srgb, var(--tertiary-medium), #333 50%);
+  --tertiary-darkest: color-mix(in srgb, var(--tertiary-medium), #333 70%);
 
   --gray-lightest: color-mix(in srgb, var(--gray-medium), #fff 70%);
   --gray-lighter: color-mix(in srgb, var(--gray-medium), #fff 50%);
@@ -49,6 +49,29 @@
   @container style(--_fixed-height: true) {
     height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp));
   }
+}
+
+.gpw-button {
+  display: block;
+  width: fit-content;
+  white-space: nowrap;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  background: var(--primary-medium);
+  padding: 1rem 5rem;
+  border-radius: 1rem;
+  transition: background 250ms, color 250ms;
+
+  &:hover {
+    background-color: var(--gray-darkest);
+    color: #fff;
+  }
+}
+
+.gpw-button--center {
+  margin-inline: auto;
 }
 /* ================= */
 /* = Product card  = */
