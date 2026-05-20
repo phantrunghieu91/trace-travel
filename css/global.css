@@ -1,3 +1,39 @@
+:root {
+  --primary-lightest: color-mix(in srgb, var(--primary-medium), #fff 70%);
+  --primary-lighter: color-mix(in srgb, var(--primary-medium), #fff 50%);
+  --primary-light: color-mix(in srgb, var(--primary-medium), #fff 30%);
+  --primary-medium: #bf1e2e;
+  --primary-dark: color-mix(in srgb, var(--primary-medium), #000 30%);
+  --primary-darker: color-mix(in srgb, var(--primary-medium), #000 50%);
+  --primary-darkest: color-mix(in srgb, var(--primary-medium), #000 70%);
+
+  --secondary-lightest: color-mix(in srgb, var(--secondary-medium), #fff 70%);
+  --secondary-lighter: color-mix(in srgb, var(--secondary-medium), #fff 50%);
+  --secondary-light: color-mix(in srgb, var(--secondary-medium), #fff 30%);
+  --secondary-medium: #27378e;
+  --secondary-dark: color-mix(in srgb, var(--secondary-medium), #000 30%);
+  --secondary-darker: color-mix(in srgb, var(--secondary-medium), #000 50%);
+  --secondary-darkest: color-mix(in srgb, var(--secondary-medium), #000 70%);
+
+  --tertiary-lightest: color-mix(in srgb, var(--tertiary-medium), #fff 70%);
+  --tertiary-lighter: color-mix(in srgb, var(--tertiary-medium), #fff 50%);
+  --tertiary-light: color-mix(in srgb, var(--tertiary-medium), #fff 30%);
+  --tertiary-medium: #cfbb98;
+  --tertiary-dark: color-mix(in srgb, var(--tertiary-medium), darkred 30%);
+  --tertiary-darker: color-mix(in srgb, var(--tertiary-medium), darkred 50%);
+  --tertiary-darkest: color-mix(in srgb, var(--tertiary-medium), darkred 70%);
+
+  --gray-lightest: color-mix(in srgb, var(--gray-medium), #fff 70%);
+  --gray-lighter: color-mix(in srgb, var(--gray-medium), #fff 50%);
+  --gray-light: color-mix(in srgb, var(--gray-medium), #fff 30%);
+  --gray-medium: #ddd;
+  --gray-dark: color-mix(in srgb, var(--gray-medium), #000 30%);
+  --gray-darker: color-mix(in srgb, var(--gray-medium), #000 50%);
+  --gray-darkest: color-mix(in srgb, var(--gray-medium), #000 70%);
+
+  --base-font: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
 .line-clamp {
   --_font-size: clamp( 0.875rem, 2vw, 1rem);
   --_line-height: 1.5;
