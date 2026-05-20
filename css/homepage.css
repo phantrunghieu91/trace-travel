@@ -121,6 +121,11 @@ section:is(.popular-tours, .be-inspired) .title-wrapper {
 
 .popular-tours .title-wrapper .title-of-section {
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.popular-tours {
+  container-type: inline-size;
 }
 
 section:is(.popular-tours, .be-inspired) .title-of-section {
@@ -128,7 +133,6 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
 }
 
 .featured-trips {
-  container-type: inline-size;
   margin-bottom: 2em;
 }
 
@@ -138,6 +142,12 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   height: auto;
   width: calc((100% - (var(--_slides-per-view) - 1) * var(--_space-between)) / var(--_slides-per-view));
   margin-right: var(--_space-between);
+}
+
+.featured-trips--grid {
+  display: grid;
+  grid-template-columns: repeat(var(--_cols, 1), minmax( 0, 1fr ));
+  gap: .625rem;
 }
 
 @container (width <=850px) {
@@ -150,18 +160,21 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
     row-gap: 1.25rem;
   }
 
-  .product-card {
+  .featured-trips--carousel .product-card {
     display: grid;
     grid-template-columns: 40% minmax(0, 1fr);
   }
 
-  .product-card__thumbnail {
+  .featured-trips--carousel .product-card__thumbnail {
     aspect-ratio: unset;
     height: 100%;
   }
+}
 
-  .product-card__price-wrapper {
-    flex-wrap: wrap;
+@container ( width > 550px ) {
+  .featured-trips--grid {
+    --_cols: 2;
+    gap: 1.25rem;
   }
 }
 
@@ -169,6 +182,10 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   .featured-trips .swiper-slide {
     --_slides-per-view: 4;
     --_space-between: 1.25rem;
+  }
+
+  .featured-trips--grid {
+    --_cols: 4;
   }
 }
 
