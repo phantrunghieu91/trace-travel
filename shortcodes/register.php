@@ -9,3 +9,4 @@ include_once 'gallery_in_homepage.php';
 include_once 'show_checkout_when_cart_had_item.php';
 include_once 'socials_media.php';
 include_once 'block_gallery.php';
+include_once 'motorbikes-category.php';

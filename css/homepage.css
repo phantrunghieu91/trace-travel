@@ -6,17 +6,17 @@
   background-color: rgba(255, 255, 255, 0);
 }
 
-#masthead .header-nav.header-nav-main.nav-right> :is(.menu-item, .header-search)>a {
+#masthead .header-nav.header-nav-main.nav-right > :is(.menu-item, .header-search) > a {
   color: #fff;
   position: relative;
 }
 
 #content {
   container: content / inline-size;
-  background: var(--gray-lightest);
+  background: var(--tertiary-medium);
 }
 
-section.section:not(.hero-banner, .booking-form-section, .featured-in)>.section-content {
+section.section:not(.hero-banner, .booking-form-section, .featured-in) > .section-content {
   padding-block: 5em;
 }
 
@@ -136,11 +136,11 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   --_slides-per-view: 1;
   --_space-between: 0rem;
   height: auto;
-  width: calc( ( 100% - ( var(--_slides-per-view) - 1 ) * var(--_space-between) ) / var(--_slides-per-view) );
+  width: calc((100% - (var(--_slides-per-view) - 1) * var(--_space-between)) / var(--_slides-per-view));
   margin-right: var(--_space-between);
 }
 
-@container ( width <= 850px ) {
+@container (width <=850px) {
   .featured-trips :is(.swiper-button-prev, .swiper-button-next) {
     display: none;
   }
@@ -165,7 +165,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   }
 }
 
-@container ( width > 850px ) {
+@container (width > 850px) {
   .featured-trips .swiper-slide {
     --_slides-per-view: 4;
     --_space-between: 1.25rem;
@@ -181,29 +181,29 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   position: relative;
 }
 
-.homepage-gallery>img {
+.homepage-gallery > img {
   object-fit: cover;
 }
 
-.homepage-gallery>img:hover {
+.homepage-gallery > img:hover {
   box-shadow: inset 0 0 50em rgba(255, 255, 255, .5);
 }
 
-.homepage-gallery>img:not(:first-child, :nth-child(6)) {
+.homepage-gallery > img:not(:first-child, :nth-child(6)) {
   aspect-ratio: 1/1;
 }
 
-.homepage-gallery>img:nth-child(1) {
+.homepage-gallery > img:nth-child(1) {
   grid-column: 1 / span 2;
   aspect-ratio: 2/1;
 }
 
-.homepage-gallery>img:nth-child(6) {
+.homepage-gallery > img:nth-child(6) {
   grid-column: 3 / span 2;
   aspect-ratio: 2/1;
 }
 
-.homepage-gallery>a {
+.homepage-gallery > a {
   cursor: pointer;
   position: absolute;
   bottom: 1em;
@@ -215,7 +215,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   transition: background-color 300ms, color 300ms;
 }
 
-.homepage-gallery>a:hover {
+.homepage-gallery > a:hover {
   background-color: rgba(255, 255, 255, 1);
 }
 
@@ -230,7 +230,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   overflow: hidden;
 }
 
-#homepage-gallery__dialog>.dialog__close-btn {
+#homepage-gallery__dialog > .dialog__close-btn {
   position: absolute;
   top: 1em;
   right: 1em;
@@ -240,7 +240,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   cursor: pointer;
 }
 
-#homepage-gallery__dialog>.dialog__close-btn:hover {
+#homepage-gallery__dialog > .dialog__close-btn:hover {
   color: var(--gray-dark);
 }
 
@@ -268,158 +268,189 @@ html.homepage-gallery-showing {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .homepage-gallery>img:nth-child(4) {
+  .homepage-gallery > img:nth-child(4) {
     grid-column: 1/ span 2;
     aspect-ratio: 2/1;
   }
 
-  .homepage-gallery>img:nth-child(6) {
+  .homepage-gallery > img:nth-child(6) {
     grid-column: span 1;
     aspect-ratio: 1;
   }
 }
-
-/* .featured-in h2 {
-  font-size: 3.125em;
-  color: #fff;
-  text-align: center;
-}
-
-.news-wrapper {
-  --news-item-width: 10em;
-  display: grid;
-  grid-template-columns: repeat(4, var(--news-item-width));
-  gap: 3em;
-  justify-content: center;
-  place-items: center;
-}
-
-.news-item {
-  display: grid;
-  gap: .625em;
-}
-
-.featured-in .news-item__title {
-  color: #fff;
-  font-weight: 600;
-  text-transform: capitalize;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.featured-in .view-all-press-btn {
-  margin-top: 3em;
-  text-align: center;
-}
-
-.featured-in .view-all-press-btn a {
-  color: var(--primary-medium);
-  background-color: #fff;
-  padding: 1em 5em;
-  border-radius: 1em;
-  font-weight: 700;
-  text-transform: capitalize;
-  transition: background-color 300ms;
-}
-
-.featured-in .view-all-press-btn a:hover {
-  background-color: var(--tertiary-light);
-} */
-
 /* ============================
-   |      SPECIAL OFFERS      |
+   |    Motorbike category    |
    ============================  */
-.special-offers :is(.wpcf7-form, .special-offers-info) {
-  padding: 4em 3em;
-  border-radius: 2em;
+.motorbikes-category {
+  container-type: inline-size;
+
+  .title-of-section {
+    margin-bottom: .625em;
+  }
+
+  .description-of-section {
+    margin-bottom: 3.125rem;
+  }
 }
 
-.special-offers-info {
-  background-image: url(https://danavitour.com/wp-content/uploads/2024/03/special-offers-bg.jpg);
-  background-position: 50% 50%;
+.motorbikes-list {
   display: grid;
-  gap: 1.5em;
+  grid-template-columns: repeat(var(--_cols, 1), minmax(0, 1fr));
+  align-items: center;
+  gap: 3.125rem;
+  margin-bottom: 5rem;
+
+  @container (width > 550px) {
+    --_cols: 2;
+  }
+
+  @container(width > 850px) {
+    --_cols: 4;
+  }
 }
 
-.special-offers-info__title,
-.wpcf7-form .form__title {
-  font-size: 2.825em;
-  color: #fff;
-}
-
-.special-offers-info__sub-title {
-  color: #fff;
-}
-
-.special-offers-info__video-link {
-  border-radius: 1em;
-  overflow: hidden;
+.motorbike {
   position: relative;
+  padding-block: var(--_motorbike-padding-block, 2.5625rem);
+  padding-inline: var(--_motorbike-padding-inline, .9375rem);
 }
 
-.special-offers-info__video-link img {
-  z-index: 1;
-  transition: transform 300ms;
-}
-
-.special-offers-info__video-link img:hover {
-  transform: scale(1.2);
-}
-
-.special-offers-info__video-link a {
+.motorbike__overlay {
   position: absolute;
-  display: block;
-  width: 40px;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  top: 50%;
+  z-index: -1;
+  border-radius: .625rem;
+  top: var(--_motorbike-overlay-top, 0rem);
+  left: var(--_motorbike-overlay-left, 0rem);
+  width: var(--_motorbike-overlay-width, 100%);
+  height: var(--_motorbike-overlay-height, 100%);
+  background-color: var(--_motorbike-overlay-bg-clr, var(--gray-light));
+  border: .125rem solid var(--_motorbike-overlay-borer-clr, var(--_motorbike-overlay-bg-clr, var(--gray-light)));
+
+  transition: top 250ms, left 250ms, width 250ms, height 250ms, border-color 250ms;
+}
+
+.motorbike:hover .motorbike__overlay {
+  border-color: var(--_motorbike-hover-overlay-border-clr, var(--gray-darkest));
+
+  transition: top 500ms, left 500ms, width 500ms, height 500ms, border-color 500ms;
+}
+
+.motorbike__best-choice-tag {
+  position: absolute;
+  top: .9375rem;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  border: 2px solid #fff;
-  font-size: 1.5em;
-  line-height: 1;
+  transform: translate( -50%, 0 );
+  background-color: var(--secondary-medium);
+  font-size: .75rem;
   color: #fff;
-  cursor: pointer;
-}
-
-.special-offers-info__video-link a:hover {
-  background-color: #fff;
-}
-
-.special-offers :is(.wpcf7-form, .wpcf7) {
-  height: 100%;
-}
-
-.special-offers :is(.form__title, .form__sub-title) {
-  margin-bottom: 0;
-}
-
-.special-offers .wpcf7-form .form__sub-title {
-  color: #fff;
-}
-
-.special-offers .wpcf7-form {
-  background-color: var(--gray-darkest);
   display: flex;
-  flex-flow: column nowrap;
-  gap: 1.5em;
+  align-items: center;
+  gap: .3125rem;
+  padding: .25rem .625rem;
+  white-space: nowrap;
+  border-radius: 2rem;
+
+  .material-symbols-outlined {
+    font-size: 1rem;
+  }
 }
 
-.special-offers .wpcf7-form input {
+.motorbike__name {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.motorbike__thumbnail {
+  margin-bottom: 1.875rem;
+}
+
+.motorbike__features {
+  margin-bottom: 1rem;
+}
+
+.check-list {
   margin-bottom: 0;
-  height: auto;
-  padding: .825em;
-  font-size: 1rem;
-  line-height: 1;
+  list-style: none;
+
+  li {
+    margin-left: 0 !important;
+    margin-bottom: .625rem;
+    font-size: .875rem;
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+
+    &:before {
+      content: '\e86c';
+      font-family: 'Material Symbols Outlined';
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+  }
 }
 
-.special-offers .wpcf7-submit {
-  margin: 0;
+.motorbike__price-wrapper {
+  margin-bottom: .9375rem;
 }
 
+.motorbike__price {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.motorbike__currency {
+  font-size: .875rem
+}
+
+.motorbike__phone-call {
+  padding: .375rem .75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background-color: var(--_cta-phone-bg-clr, var(--tertiary-medium));
+  text-transform: uppercase;
+  color: var(--_cta-phone-text-clr, #000);
+  font-size: .875rem;
+  font-weight: 600;
+  border-radius: .25rem;
+  transition: background-color 250ms, color 250ms;
+
+  &:hover {
+    background-color: var(--_cta-phone-hover-bg-clr, var(--tertiary-dark));
+  }
+}
+
+.motorbike.best-choice {
+  --_motorbike-overlay-bg-clr: var(--tertiary-lighter);
+  --_motorbike-hover-overlay-border-clr: transparent;
+  --_cta-phone-bg-clr: var(--gray-lightest);
+  --_cta-phone-hover-bg-clr: var(--gray-dark);
+
+  &:hover .motorbike__overlay {
+    animation: border-color-blink 800ms ease;
+  }
+}
+
+.motorbike.best-choice, .motorbike:hover {
+  @container ( width > 850px ) {
+    --_motorbike-padding-block: 3.125rem 2.5625rem;
+    --_motorbike-overlay-top: -1.875rem;
+    --_motorbike-overlay-left: -.625rem;
+    --_motorbike-overlay-width: calc( 100% + var(--_motorbike-overlay-left) * -2 );
+    --_motorbike-overlay-height: calc( 100% + var(--_motorbike-overlay-top) * -2 );
+  }
+}
+
+@-webkit-keyframes border-color-blink {
+  0%, 50% { border-color: var(--gray-darkest) }
+  25%, 75%, 100% { border-color: transparent }
+}
+@keyframes border-color-blink {
+  0%, 50% { border-color: var(--gray-darkest) }
+  25%, 75%, 100% { border-color: transparent }
+}
 /* ============================
    |        BE INSPIRED       |
    ============================  */
@@ -599,6 +630,7 @@ html.homepage-gallery-showing {
   .block-galery .list-gal .img:nth-child(4) {
     width: 50% !important;
   }
+
   .block-galery .list-gal .img:nth-child(5) {
     width: 50% !important;
   }
