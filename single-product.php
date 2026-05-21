@@ -153,6 +153,9 @@ if (have_posts()):
                         </div>
                         <div class="car-price__option price">
                           <?= $variation['price_html'] ?>
+                          <?php if( !empty($variation['variation_description']) ) 
+                            echo $variation['variation_description'];
+                          ?>
                         </div>
                       </div>
                     <?php endforeach; ?>
@@ -199,7 +202,7 @@ if (have_posts()):
               </div>
             </div>
             <div class="additional-info__tab-pane" id="reviews">
-              <div class="tab-pane__title">Reviews</div>
+              <div class="tab-pane__title"><?= $tab_nav['reviews'] ?></div>
               <div class="tab-pane__content"></div>
             </div>
           </div>
@@ -334,48 +337,49 @@ if (have_posts()):
           </div>
         </div>
       </section>
+      <?php
+      $related_trip_ids = [];
+
+      $related_trip_query = new WP_Query(
+        array(
+          'post_type' => 'product',
+          'posts_per_page' => 10,
+          'tax_query' => array(
+            array(
+              'taxonomy' => 'product_tag',  // product_tag for tag, product_cat for category
+              'field' => 'term_id',
+              'terms' => $product->get_tag_ids(),
+              'operator' => 'IN',
+            ),
+          ),
+          'post__not_in' => array(get_the_ID()),
+        )
+      );
+      if ($related_trip_query->have_posts()) {
+        foreach ($related_trip_query->posts as $related_prd) {
+          if (empty($related_trip_ids)) {
+            $related_trip_ids[] = $related_prd;
+          } else {
+            $is_duplicate = false;
+            foreach ($related_trip_ids as $related_trip_dup) {
+              if ($related_trip_dup->ID == $related_prd->ID) {
+                $is_duplicate = true;
+                break;
+              } else
+                continue;
+            }
+            if (!$is_duplicate)
+              $related_trip_ids[] = $related_prd->ID;
+          }
+        }
+      } ?>
+      <?php if( !empty( $related_trip_ids )) : ?>
       <section class="related-trips">
         <div class="section-inner">
-          <h2 class="related-trips__title">Related Trip</h2>
+          <h2 class="related-trips__title"><?= __('Related Tours', 'gpw') ?></h2>
           <div class="related-trips__content swiper">
             <div class="swiper-wrapper">
-              <?php
-              $related_trip_ids = [];
-
-              $related_trip_query = new WP_Query(
-                array(
-                  'post_type' => 'product',
-                  'posts_per_page' => 10,
-                  'tax_query' => array(
-                    array(
-                      'taxonomy' => 'product_tag',  // product_tag for tag, product_cat for category
-                      'field' => 'term_id',
-                      'terms' => $product->get_tag_ids(),
-                      'operator' => 'IN',
-                    ),
-                  ),
-                  'post__not_in' => array(get_the_ID()),
-                )
-              );
-              if ($related_trip_query->have_posts()) {
-                foreach ($related_trip_query->posts as $related_prd) {
-                  if (empty($related_trip_ids)) {
-                    $related_trip_ids[] = $related_prd;
-                  } else {
-                    $is_duplicate = false;
-                    foreach ($related_trip_ids as $related_trip_dup) {
-                      if ($related_trip_dup->ID == $related_prd->ID) {
-                        $is_duplicate = true;
-                        break;
-                      } else
-                        continue;
-                    }
-                    if (!$is_duplicate)
-                      $related_trip_ids[] = $related_prd->ID;
-                  }
-                }
-              }
-              foreach ($related_trip_ids as $related_trip_id) {
+              <?php foreach ($related_trip_ids as $related_trip_id) :
                 $related_trip = wc_get_product($related_trip_id);
                 ?>
                 <div class="swiper-slide related-trip">
@@ -392,16 +396,14 @@ if (have_posts()):
                   </div>
                   <a href="<?php echo $related_trip->get_permalink(); ?>" class="related-trip__book-btn">More Detail</a>
                 </div>
-                <?php
-              }
-
-              ?>
+              <?php endforeach ?>
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
           </div>
         </div>
       </section>
+      <?php endif ?>
     </div>
   <?php endwhile; endif;
 wp_reset_postdata(); ?>
