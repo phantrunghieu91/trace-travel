@@ -104,19 +104,28 @@ if (have_posts()):
         </div>
       </section>
       <section class="additional-info">
+
+        <?php 
+          $tab_nav = [ 'detail' => __('Detail', 'gpw'), 'promotion' => __('Promotion', 'gpw'), 'faqs' => __('FAQs', 'gpw'), 'reviews' => __('Reviews', 'gpw'), 'contact-us' => __('Contact us', 'gpw') ];
+        ?>
+
         <div class="section-inner">
           <div class="additional-info__nav-tabs">
             <div class="nav-tabs__inner">
-              <a class="nav-tabs__tab-control current" href="#detail">Detail</a>
-              <a class="nav-tabs__tab-control" href="#video">Video</a>
-              <a class="nav-tabs__tab-control" href="#faqs">FAQs</a>
-              <a class="nav-tabs__tab-control" href="#reviews">Reviews</a>
-              <a class="nav-tabs__tab-control" href="#contact-us">Contact Us</a>
+              <?php $idx = 0; foreach( $tab_nav as $id => $label ) {
+                echo sprintf( '<a class="nav-tabs__tab-control%s" href="#%s">%s</a>',
+                  $idx === 0 ? ' current' : '',
+                  esc_attr( $id ),
+                  esc_html( $label ),
+                );
+                $idx++;
+              } 
+              unset($idx); ?>
             </div>
           </div>
           <div class="additional-info__tab-content">
             <div class="additional-info__tab-pane" id="detail">
-              <div class="tab-pane__title">Detail</div>
+              <h3 class="tab-pane__title"><?= $tab_nav['detail'] ?></h3>
               <div class="tab-pane__content">
                 <?php the_content(); ?>
                 <div class="detail__car-price" id="car-type-price">
@@ -151,76 +160,41 @@ if (have_posts()):
                 </div>
               </div>
             </div>
-            <div class="additional-info__tab-pane" id="video">
-              <div class="tab-pane__title">Video</div>
+            <div class="additional-info__tab-pane" id="promotion">
+              <div class="tab-pane__title"><?= $tab_nav['promotion'] ?></div>
               <div class="tab-pane__content">
-                <?php the_field('video'); ?>
+                <?php the_field('promotion'); ?>
               </div>
             </div>
             <div class="additional-info__tab-pane" id="faqs">
-              <div class="tab-pane__title">FAQs</div>
+              <?php 
+              $faqs = [
+                ['question' => __('Does your company have limited time to visit?', 'gpw'), 'answer' => __('You can choose your departure time and your favorite destinations and we want to make sure you have enough time to visit at your chosen locations.', 'gpw')],
+                ['question' => __('This price is the price per person or per the private car?', 'gpw'), 'answer' => __('That price per car not person which included an English speaking driver; 24/7 chat, email or call support; toll and airport fees and charges, door to door service; free Wi-Fi on board and bottle of water.', 'gpw')],
+                ['question' => __('What happen if unfortunately we canceled the transfer?', 'gpw'), 'answer' => __('You can cancel your booking without any fees charge with but only for one day before your trip starts. After that time, you’ll pay for the fee charges.', 'gpw')],
+                [ 'question' => __('Does your driver can speak English if we want to know something during our trip?','gpw'), 'answer' => __('Yes, they can. We are always so proud of our drivers who can speak Basic English communication or better but they are not tour guides so they have limitation. You will stop at Dragon Bridge and our drivers also can give you some information about each place. We will be continue delivering excellent services for you.', 'gpw')],
+                [ 'question' => __('How will we pay for the trip?','gpw'), 'answer' => __('We accept the payment method as bellow:
+                    <ul><li>Paypal (pay extra 4% for transaction fee)</li><li>Credit card at our office (pay extra 4% for banking fee): we have two offices in Hue or Hoi An so you can pay at where you feel the most convenient.</li><li>Cash at our office or to driver.</li></ul>', 'gpw')],
+              ];
+              $faqs_specific_for_prd = get_field('faqs');
+              if( !empty( $faqs_specific_for_prd )) {
+                foreach( $faqs_specific_for_prd as $faq ) {
+                  $faqs[] = [
+                    'question' => $faq['question'],
+                    'answer' => $faq['answer'],
+                  ];
+                }
+              }
+              ?>
+              <div class="tab-pane__title"><?= $tab_nav['faqs'] ?></div>
               <div class="tab-pane__content">
                 <div class="faqs-accordion">
-                  <div class="faqs__item current">
-                    <div class="faqs__question">Does your company have limited time to visit?</div>
-                    <div class="faqs__answer">
-                      You can choose your departure time and your favorite destinations and we want
-                      to make sure you have enough time to visit at your chosen locations.
+                  <?php foreach ($faqs as $idx => $faq ) : ?>
+                    <div class="faqs__item<?= $idx == 0 ? ' current' : '' ?>">
+                      <div class="faqs__question"><?= $faq['question'] ?></div>
+                      <div class="faqs__answer"><?= wp_kses_post( $faq['answer']) ?></div>
                     </div>
-                  </div>
-                  <div class="faqs__item">
-                    <div class="faqs__question">This price is the price per person or per the private car?</div>
-                    <div class="faqs__answer">
-                      That price per car not person which included an English speaking driver; 24/7
-                      chat, email or call support; toll and airport fees and charges, door to door service; free Wi-Fi on
-                      board and bottle of water.
-                    </div>
-                  </div>
-                  <div class="faqs__item">
-                    <div class="faqs__question">What happen if unfortunately we canceled the transfer?</div>
-                    <div class="faqs__answer">
-                      You can cancel your booking without any fees charge with but only for one day before your trip starts.
-                      After that time, you’ll pay for the fee charges.
-                    </div>
-                  </div>
-                  <?php
-                  $accordion = get_field('faqs');
-                  if (!empty($accordion)) {
-                    for ($i = 0; $i < sizeof($accordion); $i++) {
-                      ?>
-                      <div class="faqs__item">
-                        <div class="faqs__question">
-                          <?php echo $accordion[$i]['question']; ?>
-                        </div>
-                        <div class="faqs__answer">
-                          <?php echo $accordion[$i]['answer']; ?>
-                        </div>
-                      </div>
-                      <?php
-                    }
-                  }
-                  ?>
-                  <div class="faqs__item">
-                    <div class="faqs__question">Does your driver can speak English if we want to know something during our
-                      trip?</div>
-                    <div class="faqs__answer">
-                      Yes, they can. We are always so proud of our drivers who can speak Basic English communication or
-                      better but they are not tour guides so they have limitation. You will stop at Dragon Bridge and our
-                      drivers also can give you some information about each place. We will be continue delivering excellent
-                      services for you.
-                    </div>
-                  </div>
-                  <div class="faqs__item">
-                    <div class="faqs__question">How will we pay for the trip?</div>
-                    <div class="faqs__answer">
-                      We accept the payment method as bellow:
-
-                      – Paypal (pay extra 4% for transaction fee)
-                      – Credit card at our office (pay extra 4% for banking fee): we have two offices in Hue or Hoi An so
-                      you can pay at where you feel the most convenient.
-                      – Cash at our office or to driver.
-                    </div>
-                  </div>
+                  <?php endforeach ?>
                 </div>
               </div>
             </div>

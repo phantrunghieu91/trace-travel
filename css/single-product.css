@@ -305,8 +305,6 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 }
 
 /* FAQS */
-.faqs-accordion {}
-
 .faqs__item {
   padding: 1em;
   display: grid;
@@ -348,6 +346,15 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 
 .faqs__answer {
   overflow: hidden;
+}
+
+.faqs__answer ul {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.faqs__answer li {
+  margin-bottom: .25rem;
 }
 
 /* CAR PRICE TABLE */
