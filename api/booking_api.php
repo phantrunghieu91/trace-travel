@@ -182,8 +182,8 @@ add_filter('woocommerce_get_item_data', function ($item_data, $cart_item) {
 
 // Add addon total display in cart and checkout
 add_action('woocommerce_cart_calculate_fees', function ($cart) {
-  $timeRangeStart = DateTime::createFromFormat('H:i', '22:00');
-  $timeRangeEnd = DateTime::createFromFormat('H:i', '06:00')->modify('+1 day');
+  // $timeRangeStart = DateTime::createFromFormat('H:i', '22:00');
+  // $timeRangeEnd = DateTime::createFromFormat('H:i', '06:00')->modify('+1 day');
   $holidays = get_field('holidays', 'option');
   foreach ($cart->get_cart() as $cart_item) {
     $depart_time = DateTime::createFromFormat('H:i', $cart_item['booking_additional_info']['departure_time']);
@@ -196,10 +196,10 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
       }
     }
     // Calculate night time fee (After 10pm to 6am)
-    if ($depart_time >= $timeRangeStart || $depart_time <= $timeRangeEnd) {
-      $fee = $cart->get_cart_contents_total() * .1;
-      $cart->add_fee(__('Nighttime fee (10%)', 'Phí chạy đêm (10%)'), $fee, true, '');
-    }
+    // if ($depart_time >= $timeRangeStart || $depart_time <= $timeRangeEnd) {
+    //   $fee = $cart->get_cart_contents_total() * .1;
+    //   $cart->add_fee(__('Nighttime fee (10%)', 'Phí chạy đêm (10%)'), $fee, true, '');
+    // }
     // Check if depart date is in holiday or not, calculate fee
     if (!empty($holidays)) {
       foreach ($holidays as $holiday) {
@@ -212,7 +212,7 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
           $holiday_end->modify('+1 day');
         if (($holiday_end && $depart_date >= $holiday_start && $depart_date < $holiday_end) || (!$holiday_end && $depart_date == $holiday_start)) {
           $fee = $cart->get_cart_contents_total() * $holiday_fee / 100;
-          $cart->add_fee(__('Holiday fee ' . ($holiday_name ? ' - ' . $holiday_name : '') . ' (' . $holiday_fee . '%)', 'Phí ngày lễ (' . $holiday_fee . '%)'), $fee, true, '');
+          $cart->add_fee(__('Holiday fee ' . ($holiday_name ? ' - ' . $holiday_name : '') . ' (' . $holiday_fee . '%)', 'gpw' ));
           break;
         }
       }
