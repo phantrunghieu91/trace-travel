@@ -47,42 +47,30 @@ if (have_posts()):
           <h1 class="page-title">
             <?php the_title(); ?>
           </h1>
-          <?php
-          $trip_info = get_field('trip_info');
-          if (!empty($trip_info)): ?>
-            <div class="trip-info">
-              <div class="trip-info__duration">
-                <div class="trip-info__icon">
-                  <?php echo wp_get_attachment_image(320, 'thumbnail', true, array('alt' => 'trip info icons')); ?>
-                </div>
-                <div class="trip-info__title"><span>Duration:</span></div>
-                <div class="trip-info__content">
-                  <?php echo $trip_info['duration']; ?>
-                </div>
-              </div>
-              <div class="trip-info__transport">
-                <div class="trip-info__icon">
-                  <?php echo wp_get_attachment_image(321, 'thumbnail', true, array('alt' => 'trip info icons')); ?>
-                </div>
-                <div class="trip-info__title"><span>Transport:</span>
-                </div>
-                <div class="trip-info__content">
-                  <?php echo $trip_info['transport']; ?>
-                </div>
-              </div>
-              <div class="trip-info__route">
-                <div class="trip-info__icon">
-                  <?php echo wp_get_attachment_image(322, 'thumbnail', true, array('alt' => 'trip info icons')); ?>
-                </div>
-                <div class="trip-info__title"><span>Route:</span>
-                </div>
-                <div class="trip-info__content">
-                  <?php echo $trip_info['route']; ?>
-                </div>
-              </div>
-              <a class="trip-info__check-price" href="#car-type-price">Check Price</a>
+          
+          <div class="rental-detail">
+            <h2 class="rental-detail__title"><?= __('Included in rental price', 'gpw') ?>:</h2>
+            <div class="rental-detail__grid">
+              <?php 
+              $rental_items = [
+                [ 'img_id' => 2100, 'label' => 'Helmet' ],
+                [ 'img_id' => 2101, 'label' => 'Phone holder' ],
+                [ 'img_id' => 2105, 'label' => '1 liter of fuel' ],
+                [ 'img_id' => 2102, 'label' => 'Bungee cords' ],
+                [ 'img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)' ],
+                [ 'img_id' => 2104, 'label' => 'Google Maps detailed route map' ],
+              ];
+              foreach( $rental_items as $item ) {
+                echo sprintf('<div class="rental-detail__item">%s<span class="rental-detail__item-label">%s</span></div>',
+                  wp_get_attachment_image( $item['img_id'], 'thumbnail', false, [ 'class' => 'rental-detail__item-icon' ]),
+                  $item['label'],
+                );
+              }
+              ?>
             </div>
-          <?php endif; ?>
+            <a class="rental-detail__check-price gpw-button" href="#car-type-price"><?= __('Check price', 'gpw') ?></a>
+          </div>
+          
           <div class="trip-gallery">
             <?php
             $gallery = $product->get_gallery_image_ids();
@@ -132,66 +120,30 @@ if (have_posts()):
               <div class="tab-pane__content">
                 <?php the_content(); ?>
                 <div class="detail__car-price" id="car-type-price">
-                  <div class="car-price__title">Price per car from
-                    <?php the_title(); ?>
-                  </div>
+                  <strong class="car-price__title"><?= __('Price per car from', 'gpw') ?> <?= get_the_title(); ?></strong>
                   <div class="car-price__table">
                     <div class="table__title">
                       <div class="car-price__option logo">
-                        <?php echo wp_get_attachment_image(7, 'thumbnail', false, array('alt' => 'logo')) ?>
+                        <?= wp_get_attachment_image(get_theme_mod('site_logo'), 'thumbnail', false, array('alt' => 'logo')) ?>
                       </div>
-                      <div class="car-price__option car-type">Car type</div>
-                      <div class="car-price__option brand">Brand</div>
-                      <div class="car-price__option max-passengers">Max Passengers</div>
-                      <div class="car-price__option english-skill">English Skill</div>
-                      <div class="car-price__option price">Price</div>
+                      <div class="car-price__option car-type"><?= __('Motorbike type', 'gpw') ?></div>
+                      <div class="car-price__option price"><?= __('Price', 'gpw') ?></div>
                     </div>
                     <?php
-                    $table_content = [];
-                    $render_conditions = function ($condition_1, $condition_2, $result_1, $result_2, $result_3) {
-                      if ($condition_1)
-                        return $result_1;
-                      elseif ($condition_2)
-                        return $result_2;
-                      else
-                        return $result_3;
-                    };
-                    foreach ($variations as $variation) {
-                      // dd($variation);
-                      $table_col = [];
-                      foreach ($variation['attributes'] as $key => $val) {
-                        $table_col['col_name'] = $render_conditions(str_contains($val, 'max-3'), str_contains($val, 'max-5'), 'sedan', 'suv', 'van');
-                        $table_col['seat'] = $render_conditions(str_contains($val, 'max-3'), str_contains($val, 'max-5'), '(04 seats)', '(07 seats)', '(16 seats)');
-                        $table_col['max_pax'] = $render_conditions(str_contains($val, 'max-3'), str_contains($val, 'max-5'), 'Max 3 Passengers', 'Max 5 Passengers', 'Max 12 Passengers');
-                        $table_col['img_id'] = $render_conditions(str_contains($val, 'max-3'), str_contains($val, 'max-5'), 315, 316, 317);
-                        $table_col['brand'] = $render_conditions(str_contains($val, 'max-3'), str_contains($val, 'max-5'), 'Chevrolet Cruze, Toyota Vios, Hyundai Accent', 'Toyota Innova, Toyota Fortuner', 'Ford Transit, Mercedes Benz Sprinter');
-                        $table_col['price'] = $variation['display_price'];
-                      }
-                      $table_content[] = $table_col;
-                    }
-                    foreach ($table_content as $col): ?>
-                      <div class="table__<?php echo $col['col_name']; ?>">
+                    foreach ($variations as $idx => $variation) :
+                      $motorbike_term = get_term_by( 'slug', $variation['attributes']['attribute_pa_motorbike-type'], 'pa_motorbike-type' );
+                    ?>
+                      <div class="table__<?= esc_attr( $idx ) ?>">
                         <div class="car-price__option image">
-                          <?php echo wp_get_attachment_image($col['img_id'], 'full', false, array('alt' => $col['col_name'])) ?>
+                          <?= wp_get_attachment_image( $variation['image_id'], 'medium', false, [ 'alt' => $variation['image']['alt'] ]) ?>
                         </div>
                         <div class="car-price__option car-type">
                           <span>
-                            <?php echo $col['col_name']; ?>
+                            <?= $motorbike_term->name ?>
                           </span>
-                          <span>
-                            <?php echo $col['seat']; ?>
-                          </span>
-                        </div>
-                        <div class="car-price__option brand">
-                          <?php echo $col['brand']; ?>
-                        </div>
-                        <div class="car-price__option max-passengers">
-                          <?php echo $col['max_pax']; ?>
-                        </div>
-                        <div class="car-price__option english-skill">Conversational English
                         </div>
                         <div class="car-price__option price">
-                          <?php echo wc_price($col['price']); ?>
+                          <?= $variation['price_html'] ?>
                         </div>
                       </div>
                     <?php endforeach; ?>
@@ -303,7 +255,7 @@ if (have_posts()):
                   <div class="booking-form__control-wrap car-types">
                     <label for="booking-car-type"><span class="dashicons dashicons-car"></span></label>
                     <select id="booking-car-type" name="booking-car-type" class="booking-form__car-type">
-                      <option value="default">Select type of car</option>
+                      <option value="default"><?= __('Choose motorbike', 'gpw') ?></option>
                       <?php
                       foreach ($variations as $variation) {
                         $term = get_term_by('slug', reset($variation['attributes']), array_keys($product->get_attributes())[0]);

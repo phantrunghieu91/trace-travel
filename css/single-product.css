@@ -59,10 +59,7 @@ section:not(.hero-banner, .additional-info) .section-inner {
   margin-bottom: 1em;
 }
 
-.title-gallery .trip-info {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 2em;
+.title-gallery .rental-detail {
   margin-bottom: 2em;
   padding: 2em;
   border-color: var(--tertiary-medium);
@@ -72,16 +69,26 @@ section:not(.hero-banner, .additional-info) .section-inner {
   background: #fff;
 }
 
-.trip-info :is(.trip-info__duration, .trip-info__transport, .trip-info__route) {
+.rental-detail__grid {
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
-  column-gap: .625em;
+  grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr ));
+  gap: 2em;
+  margin-bottom: 2rem;
 }
 
-.trip-info__icon {
+.rental-detail__check-price {
+  padding: .625rem 1.25rem;
+}
+
+.rental-detail__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: .5rem;
+}
+
+.rental-detail__item-icon {
   filter: brightness(0) saturate(100%) invert(76%) sepia(79%) saturate(915%) hue-rotate(323deg) brightness(101%) contrast(95%);
-  grid-row: 1 / 3;
   width: 2em;
   align-self: center;
 }
@@ -349,20 +356,25 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 }
 
 .car-price__title {
-  font-size: 1.3em;
+  display: inline-block;
+  font-size: 1.25rem;
   font-weight: bolder;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .car-price__table {
+  --_image-height: 10rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: .3125em;
+  grid-template-columns: repeat(var(--_cols, 4), 1fr);
+  grid-template-rows: var(--_image-height) auto auto;
+  gap: .3125rem;
 }
 
-.car-price__table :is(.table__title, .table__van, .table__suv, .table__sedan) {
+.car-price__table > * {
+  grid-row: 1 / -1;
   display: grid;
-  gap: .3125em;
+  grid-template-rows: subgrid;
+  gap: .3125rem;
 }
 
 .table__title .car-price__option {
@@ -379,7 +391,7 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 }
 
 .car-price__option:is(.logo, .image), .car-price__option:is(.logo, .image) img {
-  height: 10em;
+  height: var(--_image-height, 10rem);
   object-fit: cover;
 }
 
