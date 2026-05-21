@@ -34,6 +34,29 @@
   --base-font: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
+#content {
+  container: content / inline-size;
+}
+
+.section__inner {
+  --_section-inner-max-width: 1230px;
+  --_section-inner-padding-inline: .625rem;
+
+  width: min(var(--_section-inner-max-width), calc(100% - var(--_section-inner-padding-inline) * 2));
+  margin-inline: auto;
+
+  .section__inner--full {
+    --_section-inner-max-width: 100%;
+    --_section-inner-padding-inline: 0rem;
+  }
+
+  @container ( width > 1230px ) {
+    .section__inner:not(.section__inner--full), .section__inner--full {
+      --_section-inner-padding-inline: 0rem;
+    }
+  }
+}
+
 .line-clamp {
   --_font-size: clamp( 0.875rem, 2vw, 1rem);
   --_line-height: 1.5;
@@ -135,7 +158,7 @@
 
   flex: 1 0 auto;
   padding: .9375rem 1.25rem;
-  background: #fff;
+  background: #fff url(https://jojostudio.vn/wp-content/uploads/2026/05/Thiet-ke-chua-co-ten-10.png) center / cover no-repeat;
   display: flex;
   flex-direction: column;
 }
@@ -146,10 +169,10 @@
 }
 
 .product-card__title a {
-  color: var(--primary-medium);
+  color: var(--tertiary-medium);
 
   &:hover {
-    color: var(--secondary-medium);
+    color: var(--tertiary-dark);
   }
 }
 
@@ -160,18 +183,24 @@
   align-items: flex-end;
   flex-wrap: wrap;
   gap: .625rem;
+
+  color: var(--primary-medium);
+
+  .amount {
+    color: inherit;
+  }
 }
 
 .product-card__view-detail {
   display: block;
   padding: .3125rem .75rem;
-  background-color: var(--primary-medium);
+  background-color: var(--tertiary-dark);
   color: #fff;
 
   transition: background-color var(--_transition-duration);
 
   &:hover {
-    background-color: var(--gray-darkest);
-    color: #fff;
+    background-color: var(--gray-lightest);
+    color: #000;
   }
 }
