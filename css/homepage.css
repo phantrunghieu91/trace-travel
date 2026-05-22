@@ -305,8 +305,12 @@ html.homepage-gallery-showing {
 .motorbikes-category {
   container-type: inline-size;
 
-  .title-of-section {
+  .title-of-section:has( + .description-of-section ) {
     margin-bottom: .625em;
+  }
+
+  .title-of-section:not(:has( + .description-of-section )) {
+    margin-bottom: 3.125rem;
   }
 
   .description-of-section {
