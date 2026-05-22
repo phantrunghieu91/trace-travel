@@ -59,7 +59,7 @@ section:not(.hero-banner, .additional-info) .section-inner {
   margin-bottom: 1em;
 }
 
-.title-gallery .rental-detail {
+.title-gallery .included {
   margin-bottom: 2em;
   padding: 2em;
   border-color: var(--tertiary-medium);
@@ -69,25 +69,25 @@ section:not(.hero-banner, .additional-info) .section-inner {
   background: #fff;
 }
 
-.rental-detail__grid {
+.included__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr ));
   gap: 2em;
   margin-bottom: 2rem;
 }
 
-.rental-detail__check-price {
+.included__check-price {
   padding: .625rem 1.25rem;
 }
 
-.rental-detail__item {
+.included__item {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   column-gap: .5rem;
 }
 
-.rental-detail__item-icon {
+.included__item-icon {
   filter: brightness(0) saturate(100%) invert(76%) sepia(79%) saturate(915%) hue-rotate(323deg) brightness(101%) contrast(95%);
   width: 2em;
   align-self: center;
