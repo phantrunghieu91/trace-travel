@@ -2,6 +2,7 @@
 /**
  * Single page for product
  */
+global $product;
 get_header();
 if (have_posts()):
   while (have_posts()):
@@ -33,6 +34,25 @@ if (have_posts()):
         ];
       }
     }
+    $promotion = get_field( 'promotion' );
+    $faqs = [];
+    $faqs_specific_for_prd = get_field('faqs');
+    if( !empty( $faqs_specific_for_prd )) {
+      foreach( $faqs_specific_for_prd as $faq ) {
+        $faqs[] = [
+          'question' => $faq['question'],
+          'answer' => $faq['answer'],
+        ];
+      }
+    }
+    $tab_nav = [ 'detail' => __('Detail', 'gpw') ];
+    if( !empty( $promotion )) {
+      $tab_nav['promotion'] = __('Promotion', 'gpw'); 
+    }
+    if( !empty( $faqs )) {
+      $tab_nav['faqs'] =  __('FAQs', 'gpw');
+    }
+    $tab_nav['reviews'] = __('Reviews', 'gpw');
     ?>
     <div id="content" class="tour-entry tour-<?php the_ID(); ?>">
       <section class="hero-banner">
@@ -104,11 +124,6 @@ if (have_posts()):
         </div>
       </section>
       <section class="additional-info">
-
-        <?php 
-          $tab_nav = [ 'detail' => __('Detail', 'gpw'), 'promotion' => __('Promotion', 'gpw'), 'faqs' => __('FAQs', 'gpw'), 'reviews' => __('Reviews', 'gpw'), 'contact-us' => __('Contact us', 'gpw') ];
-        ?>
-
         <div class="section-inner">
           <div class="additional-info__nav-tabs">
             <div class="nav-tabs__inner">
@@ -130,7 +145,7 @@ if (have_posts()):
                 <?php the_content(); ?>
                 <div class="detail__car-price" id="car-type-price">
                   <strong class="car-price__title"><?= __('Price per car from', 'gpw') ?> <?= get_the_title(); ?></strong>
-                  <div class="car-price__table">
+                  <div class="car-price__table" style="--_cols: <?= esc_attr( count($variations) + 1 ) ?>;">
                     <div class="table__title">
                       <div class="car-price__option logo">
                         <?= wp_get_attachment_image(get_theme_mod('site_logo'), 'thumbnail', false, array('alt' => 'logo')) ?>
@@ -163,32 +178,16 @@ if (have_posts()):
                 </div>
               </div>
             </div>
+            <?php if( !empty( $promotion )) : ?>
             <div class="additional-info__tab-pane" id="promotion">
               <div class="tab-pane__title"><?= $tab_nav['promotion'] ?></div>
               <div class="tab-pane__content">
-                <?php the_field('promotion'); ?>
+                <?php wp_kses_post( $promotion ); ?>
               </div>
             </div>
+            <?php endif ?>
+            <?php if( !empty( $faqs )): ?>
             <div class="additional-info__tab-pane" id="faqs">
-              <?php 
-              $faqs = [
-                ['question' => __('Does your company have limited time to visit?', 'gpw'), 'answer' => __('You can choose your departure time and your favorite destinations and we want to make sure you have enough time to visit at your chosen locations.', 'gpw')],
-                ['question' => __('This price is the price per person or per the private car?', 'gpw'), 'answer' => __('That price per car not person which included an English speaking driver; 24/7 chat, email or call support; toll and airport fees and charges, door to door service; free Wi-Fi on board and bottle of water.', 'gpw')],
-                ['question' => __('What happen if unfortunately we canceled the transfer?', 'gpw'), 'answer' => __('You can cancel your booking without any fees charge with but only for one day before your trip starts. After that time, you’ll pay for the fee charges.', 'gpw')],
-                [ 'question' => __('Does your driver can speak English if we want to know something during our trip?','gpw'), 'answer' => __('Yes, they can. We are always so proud of our drivers who can speak Basic English communication or better but they are not tour guides so they have limitation. You will stop at Dragon Bridge and our drivers also can give you some information about each place. We will be continue delivering excellent services for you.', 'gpw')],
-                [ 'question' => __('How will we pay for the trip?','gpw'), 'answer' => __('We accept the payment method as bellow:
-                    <ul><li>Paypal (pay extra 4% for transaction fee)</li><li>Credit card at our office (pay extra 4% for banking fee): we have two offices in Hue or Hoi An so you can pay at where you feel the most convenient.</li><li>Cash at our office or to driver.</li></ul>', 'gpw')],
-              ];
-              $faqs_specific_for_prd = get_field('faqs');
-              if( !empty( $faqs_specific_for_prd )) {
-                foreach( $faqs_specific_for_prd as $faq ) {
-                  $faqs[] = [
-                    'question' => $faq['question'],
-                    'answer' => $faq['answer'],
-                  ];
-                }
-              }
-              ?>
               <div class="tab-pane__title"><?= $tab_nav['faqs'] ?></div>
               <div class="tab-pane__content">
                 <div class="faqs-accordion">
@@ -201,6 +200,7 @@ if (have_posts()):
                 </div>
               </div>
             </div>
+            <?php endif ?>
             <div class="additional-info__tab-pane" id="reviews">
               <div class="tab-pane__title"><?= $tab_nav['reviews'] ?></div>
               <div class="tab-pane__content"></div>
@@ -306,7 +306,7 @@ if (have_posts()):
                 </form>
               </div>
               <div class="sidebar__item need-help">
-                <div class="item__title">Need help?</div>
+                <div class="item__title"><?= __('Need help?', 'gpw') ?></div>
                 <div class="item__content">
                   <div class="need-help__phone-number"><span class="dashicons dashicons-phone"></span><a
                       href="tel:84916055666">+84 916 055 666</a></div>
@@ -316,25 +316,6 @@ if (have_posts()):
               </div>
             </div>
           </aside>
-          <div class="additional-info__tab-pane" id="contact-us">
-            <div class="tab-pane__title">Contact Us in Da Nang</div>
-            <div class="tab-pane__content">
-              <div class="contact-us__item address">
-                <span class="contact-us__title">Address:</span>
-                <div class="contact-us__content">117 Nguyễn Tri Phương - P. Vĩnh Trung - Q. Thanh Khê - Tp. Đà nẵng</div>
-              </div>
-              <div class="contact-us__item email">
-                <span class="contact-us__title">Email:</span>
-                <div class="contact-us__content"><a href="mailto:example@email.com">example@email.com</a></div>
-              </div>
-              <div class="contact-us__item phone">
-                <span class="contact-us__title">Phone:</span>
-                <div class="contact-us__content">
-                  <a href="tel:84916055666">+84 916 055 666</a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       <?php
@@ -379,24 +360,16 @@ if (have_posts()):
           <h2 class="related-trips__title"><?= __('Related Tours', 'gpw') ?></h2>
           <div class="related-trips__content swiper">
             <div class="swiper-wrapper">
-              <?php foreach ($related_trip_ids as $related_trip_id) :
-                $related_trip = wc_get_product($related_trip_id);
-                ?>
-                <div class="swiper-slide related-trip">
-                  <a href="<?php echo $related_trip->get_permalink(); ?>" class="related-trip__featured-img">
-                    <?php echo get_the_post_thumbnail($related_trip_id, 'medium'); ?>
-                  </a>
-                  <div class="related-trip__content">
-                    <a href="<?php echo $related_trip->get_permalink(); ?>" class="related-trip__title">
-                      <?php echo $related_trip->get_title(); ?>
-                    </a>
-                    <div class="related-trip__price-wrapper">From
-                      <?php echo wc_price($related_trip->price); ?>
-                    </div>
-                  </div>
-                  <a href="<?php echo $related_trip->get_permalink(); ?>" class="related-trip__book-btn">More Detail</a>
-                </div>
-              <?php endforeach ?>
+              <?php $default_product = $product; foreach ($related_trip_ids as $related_trip_id) {
+                unset( $GLOBALS['product'] );
+                $GLOBALS['product'] = wc_get_product($related_trip_id);
+                echo '<div class="swiper-slide">';
+                get_template_part( 'gpw-templates/woocommerce/product-card' );
+                echo '</div>';
+              } 
+              $GLOBALS['product'] = $default_product;
+              unset( $default_product );
+              ?>
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>

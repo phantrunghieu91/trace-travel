@@ -358,7 +358,7 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 }
 
 /* CAR PRICE TABLE */
-.detail__car-price {
+#detail {
   container: carPrice / inline-size;
 }
 
@@ -372,9 +372,10 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 .car-price__table {
   --_image-height: 10rem;
   display: grid;
-  grid-template-columns: repeat(var(--_cols, 4), 1fr);
+  grid-template-columns: repeat(var(--_cols, 4), minmax(9.375rem, 1fr));
   grid-template-rows: var(--_image-height) auto auto;
   gap: .3125rem;
+  overflow-x: auto;
 }
 
 .car-price__table > * {
@@ -423,17 +424,7 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
   background-color: var(--gray-medium);
 }
 
-@container carPrice (width < 768px) {
-  .car-price__table {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @container carPrice (width < 420px) {
-  .car-price__table {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
   .car-price__option:is(.logo, .image), .car-price__option:is(.logo, .image) img {
     height: 13em;
   }
@@ -525,61 +516,20 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
   align-items: stretch;
 }
 
-.related-trip {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 1em;
-  box-shadow: 0 0 1em rgba(0, 0, 0, .25);
-  height: auto;
-}
+.related-trips .swiper-slide {
+  --_slides-per-view: 1;
+  --_space-between: .625rem;
+  width: calc( ( 100% - ( var(--_slides-per-view) - 1 ) * var(--_space-between) ) / var(--_slides-per-view) );
+  margin-right: var(--_space-between);
 
-.related-trip__featured-img {
-  display: block;
-}
+  @container content ( width > 550px ) {
+    --_slides-per-view: 2;
+    --_space-between: 1.25rem;
+  }
 
-.related-trip__featured-img img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-}
-
-.related-trip__content {
-  flex-grow: 1;
-  padding: 1em 1.5em;
-  background-color: #fff;
-  display: grid;
-  gap: .3125em;
-}
-
-.related-trip__title {
-  font-weight: 700;
-  transition: color 300ms;
-}
-
-.related-trip__price-wrapper .amount {
-  color: crimson;
-  font-size: 1.3em;
-}
-
-.related-trip__title:hover {
-  color: var(--primary-medium);
-}
-
-.related-trip__book-btn {
-  margin-top: auto;
-  padding: .8em;
-  font-weight: 700;
-  text-align: center;
-  background-color: var(--primary-medium);
-  color: #fff;
-  text-transform: capitalize;
-  transition: 300ms;
-}
-
-.related-trip__book-btn:hover {
-  color: #fff;
-  background-color: var(--primary-dark);
+  @container content ( width > 850px ) {
+    --_slides-per-view: 4;
+  }
 }
 
 /* ===========================

@@ -46,9 +46,9 @@ document.addEventListener('DOMContentLoaded', domEvt => {
   });
 
   // Handle accordion faqs
-  document.querySelectorAll('.faqs__item').forEach(item => {
+  [...document.querySelectorAll('.faqs__item')].forEach((item, idx, items) => {
     item.addEventListener('click', event => {
-      document.querySelector('.faqs__item.current').classList.remove('current');
+      items.find( accordion => accordion.classList.contains('current'))?.classList.remove('current');
       item.classList.add('current');
     });
   });
@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', domEvt => {
   // Handle related trips carousel
   const relatedTrips = new Swiper('.related-trips__content.swiper', {
     slidesPerView: 1,
-    loop: true,
+    spaceBetween: 10,
+    rewind: true,
     breakpoints: {
       550: {
         slidesPerView: 2,
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', domEvt => {
       },
       850: {
         slidesPerView: 4,
-        spaceBetween: 30,
+        spaceBetween: 20,
       },
     },
     navigation: {
@@ -74,42 +75,33 @@ document.addEventListener('DOMContentLoaded', domEvt => {
   });
 
   // handle scroll event for tab nav
-  document.querySelectorAll('.nav-tabs__tab-control').forEach(control => {
+  const tabNavItems = {};
+  const tabPanels = {};
+  [...document.querySelectorAll('.nav-tabs__tab-control')].forEach((control) => {
+    const panelId = control.getAttribute('href');
+    const panel = document.querySelector( panelId );
+    if( panel ) tabPanels[panelId.slice(1)] = panel;
+    tabNavItems[panelId.slice(1)] = control;
     control.addEventListener('click', event => {
       event.preventDefault();
-      document.querySelector('.nav-tabs__tab-control.current').classList.remove('current');
-      control.classList.add('current');
-      document.querySelector(`${control.getAttribute('href')}`).scrollIntoView({ behavior: 'smooth' });
+      changeCurrentTab( control );
+      tabPanels[panelId.slice(1)].scrollIntoView({ behavior: 'smooth' });
     });
   });
-
-  // Display field of form in order
-  // let isDateTimeSelected = { time: false, date: false };
-  // const bookingDate = document.querySelector('#booking-date');
-  // const bookingTime = document.querySelector('#booking-time');
-  // const bookingCarType = document.querySelector('.booking-form__control-wrap.car-types');
-
-  // // When date, time choose show car type
-  // const checkSelected = (condition, type) => {
-  //   if (type == 'date') isDateTimeSelected.date = condition ? true : false;
-  //   else isDateTimeSelected.time = condition ? true : false;
-  //   if (isDateTimeSelected.date && isDateTimeSelected.time) {
-  //     bookingCarType.classList.remove('hide');
-  //   }
-  // };
-  // bookingDate.addEventListener('change', event => {
-  //   checkSelected(bookingDate.value !== '', 'date');
-  // });
-  // bookingTime.addEventListener('change', event => {
-  //   checkSelected(bookingTime.value !== '', 'time');
-  // });
-
-  // // When car type selected, summary and addon show
-  // bookingCarType.addEventListener('change', event => {
-  //   if (bookingCarType.value != 'default') {
-  //     document.querySelector('.booking-form__summary').classList.remove('hide');
-  //     document.querySelector('.booking-form__control-wrap.add-ons').classList.remove('hide');
-  //     document.querySelector('.booking-form__submit-btn').classList.remove('hide');
-  //   }
-  // });
+  const changeCurrentTab = ( navItem ) => {
+    Object.values(tabNavItems).find( c => c.classList.contains( 'current' ))?.classList.remove('current');
+    navItem.classList.add('current');
+  };
+  const tabObserver = new IntersectionObserver( entries => {
+    for( const entry of entries ) {
+      if( entry.isIntersecting ) {
+        changeCurrentTab( tabNavItems[entry.target.id] );
+      }
+    }
+  }, {
+    threshold: .5,
+  });
+  Object.values(tabPanels).forEach( panel => {
+    tabObserver.observe( panel );
+  });
 });
