@@ -18,21 +18,8 @@ $certificate_img_ids = [ 2108, 2109 ];
     <div class="section__inner">
       <div class="footer__about">
         <div class="footer__logo"><?= wp_get_attachment_image( $site_logo_id, 'medium' ) ?></div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus id alias deleniti iste mollitia placeat corporis commodi blanditiis cupiditate repellat.</p>
-        <p><?= __('Hotline (24/24)', 'gpw') ?>: <a href="tel:0338 023 344">0338 023 344</a></p>
-        <p>Email: <a href="mailto:contact@motogo.vn">contact@motogo.vn</a></p>
-        <p><?= __('Monday - Sunday') ?>: 7:00 - 22:00</p>
-        <?php if( !empty( $socials )): ?>
-        <ul class="footer__socials">
-          <?php foreach( $socials as $social ): ?>
-            <li class="footer__socials-item">
-              <a href="<?= esc_url($social['url']) ?>" target="_blank" rel="noopener noreferrer">
-                <?= wp_get_attachment_image( $social[ 'icon'], 'thumbnail', false, [ 'alt' => $social['name'] ]) ?>
-              </a>
-            </li>
-          <?php endforeach ?>
-        </ul>
-        <?php endif ?>
+        <p>Trace Travel was born out of our love for travel in Vietnam. With ten years of experience in the travel industry, we have extensive knowledge to share<br>
+Our focus is on providing authentic and unforgettable experiences for our clients, tracing the path to the best journeys throughout Vietnam</p>
       </div>
       <?php if( !empty( $menu_items ) ): ?>
       <div class="footer__menu">
@@ -49,23 +36,22 @@ $certificate_img_ids = [ 2108, 2109 ];
       </div>
       <?php endif ?>
 
-      <div class="footer__locations">
-        <h3 class="footer__title"><?= __('Location', 'gpw') ?></h3>
-        <div class="footer__location">
-          <span class="material-symbols-outlined">location_on</span>
-          <a href="javascript:void(0);" class="footer__location-name"><strong>Thuê Xe Máy Hà Nội</strong></a>
-          <div class="footer__location-address">
-            <p>CS1: <a href="https://goo.gl/maps/S8GFVPvD49TTPtbJA">81 P. Nguyễn Khả Trạc, Mai Dịch, Cầu Giấy, Hà Nội</a></p>
-            <p>CS2: <a href="https://goo.gl/maps/BAEHmNumAbzZPcvz7">Số 7 Ngõ 267 Hoàng Hoa Thám, Ngọc Hà, Hà Nội</a></p>
-          </div>
-        </div>
-        <div class="footer__location">
-          <span class="material-symbols-outlined">location_on</span>
-          <a href="javascript:void(0);" class="footer__location-name"><strong>Thuê Xe Máy Đà Nẵng</strong></a>
-          <div class="footer__location-address">
-            <p>421/3 Đ. Lê Duẩn, Chính Gián, Thanh Khê, Đà Nẵng, Vietnam</p>
-          </div>
-        </div>
+      <div class="footer__info">
+        <h3 class="footer__title"><?= __('Get in touch', 'gpw') ?></h3>
+        <p><?= __('Hotline (24/24)', 'gpw') ?>: <a href="tel:+84389080608">+84 389 08 06 08</a></p>
+        <p>Email: <a href="mailto:contact@motogo.vn">tracetravelvietnam@gmail.com</a></p>
+        <p><?= __('Monday - Sunday') ?>: 7:00 - 22:00</p>
+        <?php if( !empty( $socials )): ?>
+        <ul class="footer__socials">
+          <?php foreach( $socials as $social ): ?>
+            <li class="footer__socials-item">
+              <a href="<?= esc_url($social['url']) ?>" target="_blank" rel="noopener noreferrer">
+                <?= wp_get_attachment_image( $social[ 'icon'], 'thumbnail', false, [ 'alt' => $social['name'] ]) ?>
+              </a>
+            </li>
+          <?php endforeach ?>
+        </ul>
+        <?php endif ?>
         <div class="footer__certificate">
           <?php foreach( $certificate_img_ids as $img_id ) {
             echo wp_get_attachment_image( $img_id, 'medium' );

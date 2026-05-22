@@ -115,27 +115,8 @@
   max-width: 15rem;
 }
 
-.footer__location {
-  display: grid;
-  grid-template-columns: var(--_icon-size, 1.5rem) auto;
-  grid-template-areas: 'icon name' 'icon address';
-  gap: 0 .5rem;
-}
-
-.footer__location .material-symbols-outlined {
-  grid-area: icon;
-}
-
-.footer__location-name {
-  grid-area: name;
-}
-
-.footer__location-address {
-  grid-area: address;
-}
-
 #footer .footer__socials {
-  margin-top: 1.25rem;
+  padding-block: 1.25rem;
   list-style: none;
   display: flex;
   gap: .25rem;
@@ -185,7 +166,7 @@
   }
 }
 
-.footer__about p {
+.footer__info p {
   margin-bottom: .5rem;
 }
 
