@@ -89,4 +89,18 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
       });
     }
   }.init();
+  // * Gallery
+  const gallerySection = {
+    init() {
+      if( typeof Fancybox === 'undefined' ) {
+        console.warn( 'HOME PAGE: Fancy is NOT found!');
+        return;
+      }
+      Fancybox.bind( '[data-fancybox="imggal"]', {
+        Thumbs: {
+          type: 'classic',
+        },
+      } );
+    }
+  }.init();  
 });
