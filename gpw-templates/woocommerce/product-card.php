@@ -4,6 +4,9 @@
  * * Template: Woocommerce - Product card
  */
 global $product;
+if( !$product ) {
+  $product = wc_get_product( get_the_ID() );
+}
 if( !is_a( $product, 'WC_Product' )) {
   return;
 }
