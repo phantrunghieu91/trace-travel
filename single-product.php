@@ -3,16 +3,48 @@
  * Single page for product
  */
 global $product;
+
+const RENTAL_CAT_ID = 18;
+const TOUR_CAT_ID = 197;
+
 get_header();
 if (have_posts()):
   while (have_posts()):
     the_post();
+
     $product = wc_get_product(get_the_ID());
-    $variations = $product->get_available_variations();
-    // Sort variations by price
-    usort($variations, function ($a, $b) {
-      return $a['display_price'] - $b['display_price'];
-    });
+    $category_ids = $product->get_category_ids();
+    $variations = [];
+    if( is_a( $product, 'WC_Product_Variable')) {
+      $variations = $product->get_available_variations();
+      // Sort variations by price
+      usort($variations, function ($a, $b) {
+        return $a['display_price'] - $b['display_price'];
+      });
+    }
+    
+    if( in_array( RENTAL_CAT_ID, $category_ids )) {
+      $included_items = [
+        [ 'img_id' => 2100, 'label' => 'Helmet' ],
+        [ 'img_id' => 2101, 'label' => 'Phone holder' ],
+        [ 'img_id' => 2105, 'label' => '1 liter of fuel' ],
+        [ 'img_id' => 2102, 'label' => 'Bungee cords' ],
+        [ 'img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)' ],
+        [ 'img_id' => 2104, 'label' => 'Google Maps detailed route map' ],
+      ];
+    } else if( in_array( TOUR_CAT_ID, $category_ids )) {
+      $included_items = [
+        [ 'img_id' => 2100, 'label' => 'Helmet' ],
+        [ 'img_id' => 2105, 'label' => 'Fuel (Pillion guide)' ],
+        [ 'img_id' => 2174, 'label' => 'Mineral water (500ml/pax)' ],
+        [ 'img_id' => 2175, 'label' => 'Entrance tickets' ],
+        [ 'img_id' => 2176, 'label' => 'English speaking guide' ],
+        [ 'img_id' => 2101, 'label' => 'Phone holder' ],
+        [ 'img_id' => 2102, 'label' => 'Bungee cords' ],
+        [ 'img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)' ],
+      ];
+    }
+
     // Get add on list
     $add_ons = [];
     for ($i = 0; $i < $product->get_meta('add_on'); $i++) {
@@ -34,6 +66,9 @@ if (have_posts()):
         ];
       }
     }
+
+    $highlights = get_field( 'highlights' );
+    $what_to_bring = get_field( 'what_to_bring' );
     $promotion = get_field( 'promotion', get_the_ID() );
     $faqs = [];
     $faqs_specific_for_prd = get_field('faqs');
@@ -46,6 +81,12 @@ if (have_posts()):
       }
     }
     $tab_nav = [ 'detail' => __('Detail', 'gpw') ];
+    if( !empty( $highlights )) {
+      $tab_nav['highlights'] = __('Highlights', 'gpw'); 
+    }
+    if( !empty( $what_to_bring )) {
+      $tab_nav['what-to-bring'] = __('What to bring', 'gpw'); 
+    }
     if( !empty( $promotion )) {
       $tab_nav['promotion'] = __('Promotion', 'gpw'); 
     }
@@ -68,27 +109,21 @@ if (have_posts()):
             <?php the_title(); ?>
           </h1>
           
-          <div class="rental-detail">
-            <h2 class="rental-detail__title"><?= __('Included in rental price', 'gpw') ?>:</h2>
-            <div class="rental-detail__grid">
+          <div class="included">
+            <h2 class="included__title"><?= in_array( RENTAL_CAT_ID, $category_ids ) ? __('Included in rental price', 'gpw') : __('Included in tour price', 'gpw') ?>:</h2>
+            <div class="included__grid">
               <?php 
-              $rental_items = [
-                [ 'img_id' => 2100, 'label' => 'Helmet' ],
-                [ 'img_id' => 2101, 'label' => 'Phone holder' ],
-                [ 'img_id' => 2105, 'label' => '1 liter of fuel' ],
-                [ 'img_id' => 2102, 'label' => 'Bungee cords' ],
-                [ 'img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)' ],
-                [ 'img_id' => 2104, 'label' => 'Google Maps detailed route map' ],
-              ];
-              foreach( $rental_items as $item ) {
-                echo sprintf('<div class="rental-detail__item">%s<span class="rental-detail__item-label">%s</span></div>',
-                  wp_get_attachment_image( $item['img_id'], 'thumbnail', false, [ 'class' => 'rental-detail__item-icon' ]),
+              foreach( $included_items as $item ) {
+                echo sprintf('<div class="included__item">%s<span class="included__item-label">%s</span></div>',
+                  wp_get_attachment_image( $item['img_id'], 'thumbnail', false, [ 'class' => 'included__item-icon' ]),
                   $item['label'],
                 );
               }
               ?>
             </div>
-            <a class="rental-detail__check-price gpw-button" href="#car-type-price"><?= __('Check price', 'gpw') ?></a>
+            <?php if( !empty( $variations )) : ?>
+              <a class="included__check-price gpw-button" href="#car-type-price"><?= __('Check price', 'gpw') ?></a>
+            <?php endif ?>
           </div>
           
           <div class="trip-gallery">
@@ -143,8 +178,10 @@ if (have_posts()):
               <h3 class="tab-pane__title"><?= $tab_nav['detail'] ?></h3>
               <div class="tab-pane__content">
                 <?php the_content(); ?>
+                
+                <?php if( !empty( $variations )): ?>
                 <div class="detail__car-price" id="car-type-price">
-                  <strong class="car-price__title"><?= __('Price per car from', 'gpw') ?> <?= get_the_title(); ?></strong>
+                  <strong class="car-price__title"><?= __('Price detail for', 'gpw') ?> <?= get_the_title(); ?></strong>
                   <div class="car-price__table" style="--_cols: <?= esc_attr( count($variations) + 1 ) ?>;">
                     <div class="table__title">
                       <div class="car-price__option logo">
@@ -176,13 +213,30 @@ if (have_posts()):
                     <?php endforeach; ?>
                   </div>
                 </div>
+                <?php endif ?>
               </div>
             </div>
+            <?php if( !empty( $highlights )) : ?>
+            <div class="additional-info__tab-pane" id="highlights">
+              <div class="tab-pane__title"><?= $tab_nav['highlights'] ?></div>
+              <div class="tab-pane__content">
+                <?= wp_kses_post( $highlights ); ?>
+              </div>
+            </div>
+            <?php endif ?>
+            <?php if( !empty( $what_to_bring )) : ?>
+            <div class="additional-info__tab-pane" id="what-to-bring">
+              <div class="tab-pane__title"><?= $tab_nav['what-to-bring'] ?></div>
+              <div class="tab-pane__content">
+                <?= wp_kses_post( $what_to_bring ); ?>
+              </div>
+            </div>
+            <?php endif ?>
             <?php if( !empty( $promotion )) : ?>
             <div class="additional-info__tab-pane" id="promotion">
               <div class="tab-pane__title"><?= $tab_nav['promotion'] ?></div>
               <div class="tab-pane__content">
-                <?php wp_kses_post( $promotion ); ?>
+                <?= wp_kses_post( $promotion ); ?>
               </div>
             </div>
             <?php endif ?>
@@ -202,8 +256,7 @@ if (have_posts()):
             </div>
             <?php endif ?>
             <div class="additional-info__tab-pane" id="reviews">
-              <div class="tab-pane__title"><?= $tab_nav['reviews'] ?></div>
-              <div class="tab-pane__content"></div>
+              <?php comments_template(  ) ?>
             </div>
           </div>
           <aside class="additional-info__sidebar">
@@ -324,12 +377,12 @@ if (have_posts()):
       $related_trip_query = new WP_Query(
         array(
           'post_type' => 'product',
-          'posts_per_page' => 10,
+          'posts_per_page' => 8,
           'tax_query' => array(
             array(
-              'taxonomy' => 'product_tag',  // product_tag for tag, product_cat for category
+              'taxonomy' => 'product_cat',  // product_tag for tag, product_cat for category
               'field' => 'term_id',
-              'terms' => $product->get_tag_ids(),
+              'terms' => $category_ids,
               'operator' => 'IN',
             ),
           ),
