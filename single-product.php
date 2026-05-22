@@ -34,7 +34,7 @@ if (have_posts()):
         ];
       }
     }
-    $promotion = get_field( 'promotion' );
+    $promotion = get_field( 'promotion', get_the_ID() );
     $faqs = [];
     $faqs_specific_for_prd = get_field('faqs');
     if( !empty( $faqs_specific_for_prd )) {
