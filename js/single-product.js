@@ -1,49 +1,14 @@
 document.addEventListener('DOMContentLoaded', domEvt => {
-  const galleryDialog = document.querySelector('#trip-gallery-full');
-  const gallerySwiper = new Swiper('#trip-gallery-full > .swiper', {
-    slidesPerView: 1,
-    loop: true,
-    centeredSlides: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-
-  // Function open gallery modal
-  const openGalleryModal = () => {
-    galleryDialog.showModal();
-    document.documentElement.classList.add('gallery-show');
-  };
-  if (document.querySelector('.trip-gallery__toggle-btn'))
-    document.querySelector('.trip-gallery__toggle-btn').addEventListener('click', toggleEvt => {
-      toggleEvt.preventDefault();
-      openGalleryModal();
+  // Gallery
+  if( typeof Fancybox !== 'undefined' ) {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+      Thumbs: {
+        type: 'classic',
+      }
     });
-
-  // When click on any pics in gallery will open modal with that pic at full size
-  document.querySelectorAll('.previews__item').forEach(img => {
-    img.addEventListener('click', evt => {
-      openGalleryModal();
-      let index = document.querySelector(`.swiper-slide[data-img-id="${img.dataset.imgId}"]`).dataset.swiperSlideIndex;
-      gallerySwiper.slideTo(index, 300, true);
-    });
-  });
-
-  // Close gallery dialog
-  const closeGalleryDialog = () => {
-    galleryDialog.close();
-    document.documentElement.classList.remove('gallery-show');
-  };
-  if (document.querySelector('.trip-gallery__dialog-close-btn'))
-    document.querySelector('.trip-gallery__dialog-close-btn').addEventListener('click', event => {
-      event.preventDefault();
-      closeGalleryDialog();
-    });
-  // Handle gallery dialog close on when user press Esc key
-  galleryDialog.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeGalleryDialog();
-  });
+  } else {
+    console.warn( 'SINGLE PRODUCT PAGE: Fancybox library is missing!' );
+  }
 
   // Handle accordion faqs
   [...document.querySelectorAll('.faqs__item')].forEach((item, idx, items) => {

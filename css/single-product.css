@@ -131,16 +131,11 @@ section:not(.hero-banner, .additional-info) .section-inner {
   }
 }
 
-/* Hide scroll bar when full gallery show */
-html.gallery-show {
-  overflow: hidden;
-}
-
 .trip-gallery__previews {
   --gallery-gap: 1em;
-  --img-width: 65%;
+  --first-img-width: 65%;
   display: grid;
-  grid-template-columns: calc(var(--img-width) - var(--gallery-gap)) repeat(2, calc((100% - var(--img-width)) / 2 - var(--gallery-gap) / 2));
+  grid-template-columns: var(--first-img-width) repeat(2 ,minmax( 0, 1fr ) );
   grid-template-rows: 1fr 1fr;
   gap: var(--gallery-gap);
   position: relative;
@@ -159,17 +154,20 @@ html.gallery-show {
 }
 
 .previews__item {
+  display: block;
   border-radius: 1.25em;
   overflow: hidden;
   cursor: pointer;
 }
 
 .previews__item:nth-of-type(1) {
-  grid-row: 1/span 2;
+  grid-row: 1 / span 2;
 }
 
 .previews__item:nth-of-type(1) img {
-  aspect-ratio: 3/2.3;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2.3;
 }
 
 .previews__item img {
@@ -177,66 +175,9 @@ html.gallery-show {
   object-fit: cover;
 }
 
-.trip-gallery__dialog {
-  --close-btn-x: calc(100% - 4rem) ;
-  --close-btn-y: 0;
-  padding: 0;
-  margin: auto;
-  border: 0;
-  width: 60%;
-  height: 90svh;
-  overflow: hidden;
-  background-color: transparent;
+.trip-gallery__remain-imgs {
+  display: none;
 }
-
-.trip-gallery__dialog .swiper {
-  height: 100%;
-  max-height: 100%;
-  cursor: pointer;
-}
-
-.trip-gallery__dialog .swiper-slide {
-  flex: 1 0 100%;
-  max-height: 90svh;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.trip-gallery__dialog .swiper-slide img {
-  max-height: 100%;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-
-::backdrop {
-  background: rgba(0, 0, 0, .75);
-}
-
-.trip-gallery__dialog-close-btn {
-  position: absolute;
-  color: #fff;
-  z-index: 2;
-  top: var(--close-btn-y);
-  left: var(--close-btn-x);
-  cursor: pointer;
-}
-
-.trip-gallery__dialog-close-btn:hover > .dashicons {
-  color: var(--primary-medium);
-}
-
-.trip-gallery__dialog-close-btn > .dashicons {
-  font-size: 4em;
-  display: block;
-  width: auto;
-  height: auto;
-  transition: color 300ms;
-}
-
 /* ===========================
    |     ADDITIONAL INFO     |
    =========================== */
@@ -360,6 +301,49 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 /* CAR PRICE TABLE */
 #detail {
   container: carPrice / inline-size;
+}
+
+.price-table {
+  display: grid;
+  grid-template-columns: repeat( var(--_cols, 4), minmax( 9.375rem, 1fr));
+  overflow-x: auto;
+}
+
+.price-table--first-col-auto {
+  grid-template-columns: auto repeat( calc(var(--_cols, 3) - 1), minmax( 9.375rem, 1fr) );
+}
+
+.price-table__row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+
+  &:has( + .price-table__row ):not(.price-table__row--header) {
+    border-bottom: .0625rem solid var(--gray-darkest);
+  }
+}
+
+.price-table__cell {
+  padding-block: .875rem;
+  padding-inline: .9375rem;
+  text-align: center;
+  background-color: var(--gray-medium);
+  
+  p {
+    margin-bottom: .5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.price-table__cell--header {
+  align-content: center;
+  padding-block: 1.25rem;
+  background-color: var(--tertiary-medium);
+  color: #fff;
+  font-size: 1.125rem;
 }
 
 .car-price__title {

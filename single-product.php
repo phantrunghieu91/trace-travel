@@ -45,6 +45,8 @@ if (have_posts()):
       ];
     }
 
+    $price_table = get_field( 'price_table' );
+
     // Get add on list
     $add_ons = [];
     for ($i = 0; $i < $product->get_meta('add_on'); $i++) {
@@ -94,6 +96,8 @@ if (have_posts()):
       $tab_nav['faqs'] =  __('FAQs', 'gpw');
     }
     $tab_nav['reviews'] = __('Reviews', 'gpw');
+
+    $gallery = $product->get_gallery_image_ids();
     ?>
     <div id="content" class="tour-entry tour-<?php the_ID(); ?>">
       <section class="hero-banner">
@@ -121,41 +125,46 @@ if (have_posts()):
               }
               ?>
             </div>
-            <?php if( !empty( $variations )) : ?>
-              <a class="included__check-price gpw-button" href="#car-type-price"><?= __('Check price', 'gpw') ?></a>
+            <?php if( !empty( $variations ) || (!empty( $price_table ) && !empty( $price_table[0]['rows'] )) ) : ?>
+              <a class="included__check-price gpw-button" 
+                onclick="document.querySelector('#car-type-price')?.scrollIntoView({behavior:'smooth'})"><?= __('Check price', 'gpw') ?></a>
             <?php endif ?>
           </div>
           
-          <div class="trip-gallery">
-            <?php
-            $gallery = $product->get_gallery_image_ids();
-            $previews = '';
-            $dialog = '';
-            $count = 0;
-            if (!empty($gallery)):
-              foreach ($gallery as $img_id) {
-                if ($count++ < 5)
-                  $previews .= '<div class="previews__item" data-img-id="' . $img_id . '">' . wp_get_attachment_image($img_id, 'large', false, array('alt' => $product->get_title() . $img_id)) . '</div>';
-                $dialog .= '<div class="swiper-slide" data-img-id="' . $img_id . '">' . wp_get_attachment_image($img_id, 'full', false, array('alt' => $product->get_title() . $img_id)) . '</div>';
+          <?php if (!empty($gallery)): ?>
+            <div class="trip-gallery">  
+              <?php
+              $previews = '';
+              $remain_imgs = '';
+              foreach ($gallery as $idx => $img_id) {
+                if ($idx < 5) {
+                  $previews .= sprintf('<a class="previews__item" data-fancybox="gallery" href="%s">%s</a>', 
+                    wp_get_attachment_image_url( $img_id, 'full' ),
+                    wp_get_attachment_image($img_id, 'large'),
+                  );
+                } else {
+                  $remain_imgs .= sprintf('<a class="previews__item~" data-fancybox="gallery" href="%s">%s</a>',
+                    wp_get_attachment_image_url( $img_id, 'full' ),
+                    wp_get_attachment_image( $img_id, 'large' ),
+                  );
+                }
               }
               ?>
-              <div class="trip-gallery__previews">
-                <a href="#trip-gallery-full" class="trip-gallery__toggle-btn">
-                  <span class="dashicons dashicons-images-alt2"></span>Gallery</a>
-                <?php echo $previews; ?>
-              </div>
-              <dialog class="trip-gallery__dialog" id="trip-gallery-full">
-                <a class="trip-gallery__dialog-close-btn"><span class="dashicons dashicons-no-alt"></span></a>
-                <div class="swiper">
-                  <div class="swiper-wrapper">
-                    <?php echo $dialog; ?>
-                  </div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
+              <?php if( !empty( $previews ) ) : ?>
+                <div class="trip-gallery__previews">
+                  <?php echo $previews; ?>
+                  <a href="javascript:void(0);" class="trip-gallery__toggle-btn" onclick="Fancybox.fromSelector('[data-fancybox=gallery]', 0)">
+                    <span class="dashicons dashicons-images-alt2"></span><?= __('Gallery', 'gpw') ?>
+                  </a>
                 </div>
-              </dialog>
-            <?php endif; ?>
-          </div>
+              <?php endif ?>
+              <?php if( $remain_imgs ) : ?>
+                <div class="trip-gallery__remain-imgs">
+                  <?= $remain_imgs ?>
+                </div>
+              <?php endif ?>
+            </div>
+          <?php endif; ?>
         </div>
       </section>
       <section class="additional-info">
@@ -178,6 +187,24 @@ if (have_posts()):
               <h3 class="tab-pane__title"><?= $tab_nav['detail'] ?></h3>
               <div class="tab-pane__content">
                 <?php the_content(); ?>
+
+                <?php if( !empty( $price_table ) && !empty( $price_table[0]['rows'] )) : ?>
+                  <div class="price-table<?= $price_table[0]['acf_fc_layout'] !== 'two_column' ? ' price-table--first-col-auto' : '' ?>" 
+                    id="car-type-price" style="<?= '--_cols:' . count( $price_table[0]['table_header']) . ';' ?>">
+                    <div class="price-table__row price-table__row--header">
+                      <?php foreach( $price_table[0][ 'table_header' ] as $header ): ?>
+                        <strong class="price-table__cell price-table__cell--header"><?= esc_html( $header ) ?></strong>
+                      <?php endforeach ?>
+                    </div>
+                    <?php foreach( $price_table[0]['rows'] as $row ) : ?>
+                      <div class="price-table__row">
+                        <?php foreach( $row as $cell ) : ?>
+                          <div class="price-table__cell"><?= wp_kses_post( $cell ) ?></div>
+                        <?php endforeach ?>
+                      </div>
+                    <?php endforeach ?>
+                  </div>
+                <?php endif ?>
                 
                 <?php if( !empty( $variations )): ?>
                 <div class="detail__car-price" id="car-type-price">

@@ -1,8 +1,13 @@
 <?php
 add_action('wp_enqueue_scripts', function () {
-  wp_enqueue_style('header-footer', get_stylesheet_directory_uri() . '/css/header-footer.css', [], '1.0.0', 'all');
+  wp_enqueue_style('header-footer', get_stylesheet_directory_uri() . '/css/header-footer.css', [], time(), 'all'); // 1.0.0
   wp_enqueue_style('global', get_stylesheet_directory_uri() . '/css/global.css', [], time(), 'all');
   wp_enqueue_style( 'material-symbols-outlined', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined', [], null, 'all');
+  // Register fancybox for page that need it
+  if( is_front_page() || is_singular( 'product' ) ) {
+    wp_enqueue_style('fancybox', get_stylesheet_directory_uri(  ) . '/css/fancybox.min.css', [], null, 'all' );
+  }
+
   if (is_front_page()) {
     wp_enqueue_style('swiper', get_stylesheet_directory_uri() . '/css/swiper-bundle.min.css', [], '11.0.5', 'all');
     wp_enqueue_style('feedback', get_stylesheet_directory_uri() . '/css/feedback.css', [], '1.0.0', 'all');
@@ -11,7 +16,7 @@ add_action('wp_enqueue_scripts', function () {
   }
   if (is_product()) {
     wp_enqueue_style('swiper', get_stylesheet_directory_uri() . '/css/swiper-bundle.min.css', [], '11.0.5', 'all');
-    wp_enqueue_style('single-product', get_stylesheet_directory_uri() . '/css/single-product.css', [], '1.0.0', 'all');
+    wp_enqueue_style('single-product', get_stylesheet_directory_uri() . '/css/single-product.css', [], time(), 'all'); // '1.0.0'
   }
   if (is_page('contact-us')) {
     wp_enqueue_style('contactpage', get_stylesheet_directory_uri() . '/css/contactpage.css', [], '1.0.0', 'all');
@@ -22,7 +27,7 @@ add_action('wp_enqueue_scripts', function () {
   if (is_single() && !is_product()) {
     wp_enqueue_style('singlepost', get_stylesheet_directory_uri() . '/css/singlepost.css', [], '1.0.0', 'all');
   }
-  if(is_product_category() || is_shop() || is_product_tag() || is_archive() || is_single() || is_search() || is_home() || is_page('contact-us')) {
+  if(is_product_category() || is_shop() || is_product_tag() || is_archive() ) {
     wp_enqueue_style('archive-product-page', get_stylesheet_directory_uri() . '/css/archive-product-page.css', [], time(), 'all');
   }
 });

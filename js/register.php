@@ -1,7 +1,7 @@
 <?php
 add_action('wp_enqueue_scripts', function () {
   // Register fancybox for page that need it
-  if( is_front_page() ) {
+  if( is_front_page() || is_singular( 'product' ) ) {
     wp_enqueue_script('fancybox', get_stylesheet_directory_uri(  ) . '/js/fancybox.min.js', [], null, true );
   }
 
