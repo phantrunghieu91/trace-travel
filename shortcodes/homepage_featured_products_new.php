@@ -6,7 +6,7 @@ add_shortcode('homepage_featured_products', function ( $atts ) {
   ], $atts ));
   $products = wc_get_products([
     'status' => 'publish',
-    'limit' => $display_style === 'carousel' ? 6 : 8,
+    'limit' => 6,
     'product_category_id' => [ $prd_cat_id ],
   ]);
   $classes = [ 'featured-trips' ];

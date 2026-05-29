@@ -68,6 +68,10 @@
   color: var(--primary-medium);
 }
 
+.description-of-section {
+  color: #fff;
+}
+
 .line-clamp {
   --_font-size: clamp( 0.875rem, 2vw, 1rem);
   --_line-height: 1.5;

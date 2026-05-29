@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
         console.warn( 'HOME PAGE: Can NOT find featured trips swiper element!' );
         return;
       }
-      this.initObserver();
+      this.swipers = this.initSwiper();
     },
     initObserver() {
       let swipers = [];
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
       }
       return this.swiperEls.map( swiperEl => {
         return new Swiper( swiperEl, {
-          slidesPerView: 4,
+          slidesPerView: 1,
           spaceBetween: 20,
           initialSlide: 2,
           centeredSlides: true,
@@ -84,6 +84,14 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
           navigation: {
             nextEl: '.featured-trips .swiper-button-next',
             prevEl: '.featured-trips .swiper-button-prev',
+          },
+          breakpoints: {
+            550: {
+              slidesPerView: 2,
+            },
+            850: {
+              slidesPerView: 3,
+            }
           }
         }) 
       });
