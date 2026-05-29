@@ -58,10 +58,21 @@
   }
 }
 
+.title-of-section {
+  font-size: 2.25em;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.title-of-section__high-light {
+  color: var(--primary-medium);
+}
+
 .line-clamp {
   --_font-size: clamp( 0.875rem, 2vw, 1rem);
   --_line-height: 1.5;
   --_line-clamp: 2;
+  --_height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp));
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--_line-clamp);
@@ -71,7 +82,7 @@
   line-height: var(--_line-height);
 
   @container style(--_fixed-height: true) {
-    height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp));
+    height: var(--_height);
   }
 }
 
@@ -101,22 +112,26 @@
 /* = Product card  = */
 /* ================= */
 .product-card {
+  --_card-padding: .625rem;
   --_transition-duration: 250ms;
+  --_fixed-height: true;
+  --_card-bg-clr: hsl( from #0b0b0b h s l / .6 );
 
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card__header {
   position: relative;
+  height: 100%;
+  padding: var(--_card-padding);
+  display: grid;
+  grid-template-columns: minmax(0 ,1fr);
+  grid-template-areas: 'img' 'desc' 'button' 'price';
+  background-color: var(--_card-bg-clr);
+  color: #fff;
 }
 
 .product-card__category {
   padding: 0.5rem 1rem;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: var(--_card-padding);
+  left: var(--_card-padding);
   z-index: 2;
 
   font-size: 0.875rem;
@@ -131,13 +146,14 @@
 }
 
 .product-card__category:hover {
-  color: var(--secondary-lightest);
+  color: var(--tertiary-lightest);
 }
 
 .product-card__thumbnail {
+  grid-area: img;
   z-index: 1;
   display: block;
-  aspect-ratio: 3/2;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 
@@ -154,38 +170,38 @@
   transform: scale(1.1);
 }
 
-.product-card__content {
-  --_fixed-height: true;
-
-  flex: 1 0 auto;
-  padding: .9375rem 1.25rem;
-  background: #fff url(https://jojostudio.vn/wp-content/uploads/2026/05/Thiet-ke-chua-co-ten-10.png) center / cover no-repeat;
-  display: flex;
-  flex-direction: column;
-}
-
 .product-card__title {
-  --_font-size: clamp( 1rem, 2.5vw, 1.25rem );
+  --_font-size: clamp( 1.25rem, 1rem + 2.5cqi, 1.5rem );
   --_line-height: 1.4;
+  --_padding-block: .625rem;
+  --_padding-inline: .9375rem;
+  --_height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp) + var(--_padding-block) * 2);
+  
+  grid-area: img;
+  z-index: 2;
+  background-color: var(--_card-bg-clr);
+  align-self: end;
+  margin-bottom: 0;
+  padding: var(--_padding-block) var(--_padding-inline);
+  
 }
 
 .product-card__title a {
-  color: var(--tertiary-medium);
+  color: #fff;
 
   &:hover {
-    color: var(--tertiary-dark);
+    color: var(--tertiary-medium);
   }
 }
 
-.product-card__price-wrapper {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: .625rem;
+.product-card__description {
+  --_line-clamp: 3;
+  color: #fff;
+  margin-block: .9375rem;
+}
 
-  color: var(--primary-medium);
+.product-card__price {
+  margin-bottom: .625rem;
 
   .amount {
     color: inherit;
@@ -194,11 +210,15 @@
 
 .product-card__view-detail {
   display: block;
+  width: fit-content;
   padding: .3125rem .75rem;
-  background-color: var(--tertiary-dark);
+  margin-bottom: .9375rem;
+  background-color: transparent;
+  border: .0625rem solid #fff;
   color: #fff;
+  font-weight: 600;
 
-  transition: background-color var(--_transition-duration);
+  transition: background-color var(--_transition-duration), color var(--_transition-duration);
 
   &:hover {
     background-color: var(--gray-lightest);

@@ -36,15 +36,6 @@ div.row.row.row-collapse {
   padding-right: 0;
 }
 
-.title-of-section {
-  font-size: 2.25em;
-  text-transform: capitalize;
-}
-
-.title-of-section__high-light {
-  color: var(--primary-medium);
-}
-
 /*************** ALL SCREEN CSS HERE  ***************/
 @media screen and (min-width: 550px) {}
 
