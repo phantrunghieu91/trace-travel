@@ -36,6 +36,7 @@
 
 #content {
   container: content / inline-size;
+  background: url(https://jojostudio.vn/wp-content/uploads/2026/05/Thiet-ke-chua-co-ten-10.png) center / contain repeat;
 }
 
 .section__inner {
