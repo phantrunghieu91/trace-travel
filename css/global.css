@@ -10,7 +10,7 @@
   --secondary-lightest: color-mix(in srgb, var(--secondary-medium), #fff 70%);
   --secondary-lighter: color-mix(in srgb, var(--secondary-medium), #fff 50%);
   --secondary-light: color-mix(in srgb, var(--secondary-medium), #fff 30%);
-  --secondary-medium: #27378e;
+  --secondary-medium: #ff5722;
   --secondary-dark: color-mix(in srgb, var(--secondary-medium), #000 30%);
   --secondary-darker: color-mix(in srgb, var(--secondary-medium), #000 50%);
   --secondary-darkest: color-mix(in srgb, var(--secondary-medium), #000 70%);
