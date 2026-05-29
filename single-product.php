@@ -143,7 +143,7 @@ if (have_posts()):
                     wp_get_attachment_image($img_id, 'large'),
                   );
                 } else {
-                  $remain_imgs .= sprintf('<a class="previews__item~" data-fancybox="gallery" href="%s">%s</a>',
+                  $remain_imgs .= sprintf('<a class="previews__item" data-fancybox="gallery" href="%s">%s</a>',
                     wp_get_attachment_image_url( $img_id, 'full' ),
                     wp_get_attachment_image( $img_id, 'large' ),
                   );
@@ -153,7 +153,7 @@ if (have_posts()):
               <?php if( !empty( $previews ) ) : ?>
                 <div class="trip-gallery__previews">
                   <?php echo $previews; ?>
-                  <a href="javascript:void(0);" class="trip-gallery__toggle-btn" onclick="Fancybox.fromSelector('[data-fancybox=gallery]', 0)">
+                  <a href="javascript:void(0);" class="trip-gallery__toggle-btn">
                     <span class="dashicons dashicons-images-alt2"></span><?= __('Gallery', 'gpw') ?>
                   </a>
                 </div>
@@ -389,9 +389,14 @@ if (have_posts()):
                 <div class="item__title"><?= __('Need help?', 'gpw') ?></div>
                 <div class="item__content">
                   <div class="need-help__phone-number"><span class="dashicons dashicons-phone"></span><a
-                      href="tel:84916055666">+84 916 055 666</a></div>
+                      href="tel:+84389080608">+84 389 08 06 08</a></div>
                   <div class="need-help__email"><span class="dashicons dashicons-email-alt"></span><a
-                      href="mailto:info@example.com">info@example.com</a></div>
+                      href="mailto:tracetravelvietnam@gmail.com">tracetravelvietnam@gmail.com</a></div>
+                </div>
+				<div class="need-help__booking-btn-wrapper" style="margin-top: 15px;">
+            <a href="https://forms.gle/fVQihmLoPtiBTD9j6" target="_blank" class="booking-now-btn">
+                Booking now
+            </a>
                 </div>
               </div>
             </div>

@@ -27,3 +27,7 @@
   grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
   gap: 1.25rem clamp( .75rem, 2.5cqi, 1.25rem );
 }
+
+.woocommerce-pagination {
+  margin-top: 3.125rem;
+}

@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', domEvt => {
   // Gallery
   if( typeof Fancybox !== 'undefined' ) {
-    Fancybox.bind('[data-fancybox="gallery"]', {
-      Thumbs: {
-        type: 'classic',
-      }
+    const options = {
+      Thumbs: { type: 'classic' },
+    };
+    Fancybox.bind('[data-fancybox="gallery"]', options);
+    document.querySelector('.trip-gallery__toggle-btn')?.addEventListener('click', event => {
+      Fancybox.fromSelector('[data-fancybox="gallery"]', 0, options);
     });
   } else {
     console.warn( 'SINGLE PRODUCT PAGE: Fancybox library is missing!' );
