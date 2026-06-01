@@ -500,6 +500,7 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
   grid-template-rows: var(--_image-height) auto auto;
   gap: .3125rem;
   overflow-x: auto;
+  color: #111;
 }
 
 .car-price__table > * {
@@ -574,10 +575,14 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 
 .sidebar__inner--sticky {
   position: sticky;
-  top: 6em;
+  top: 8rem;
   display: grid;
-  gap: 1em;
-  padding: 1em;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+html:has(#wpadminbar) .sidebar__inner--sticky {
+  top: 10rem;
 }
 
 .sidebar__item {
