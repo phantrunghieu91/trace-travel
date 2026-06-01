@@ -458,6 +458,7 @@ html.homepage-gallery-showing {
    ============================  */
 .be-inspired .sub-title {
   margin-bottom: 2em;
+  color: var(--gray-lightest);
 }
 
 .be-inspired .col-inner {
