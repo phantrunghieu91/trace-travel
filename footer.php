@@ -10,7 +10,32 @@ $socials = get_field( 'socials', 'option' );
 $footer_menu_id = 2;
 $menu_items = wp_get_nav_menu_items( $footer_menu_id );
 $certificate_img_ids = [ 2108, 2109 ];
+
+$booking_data = get_field( 'booking', 'gpw_settings' );
 ?>
+
+<?php if (!empty( $booking_data['booking_with'] ) ) : ?>
+  <section class="booking">
+    <div class="section__inner">
+      <ul class="booking__with">
+        <?php foreach( $booking_data['booking_with'] as $with ): ?>
+          <li class="booking__with-item">
+            <a href="<?= esc_url( $with['link']) ?>" target="_blank" rel="noopener noreferrer">
+              <span><?= esc_html( $with['label']) ?></span>
+              <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+          </li>
+        <?php endforeach ?>
+      </ul>
+      <?php if( !empty( $booking_data['map'] )): ?>
+      <div class="booking__map">
+        <?= $booking_data['map'] ?>
+      </div>
+      <?php endif ?>
+    </div>
+  </section>
+<?php endif ?>
+
 </main>
 
 <footer id="footer" class="footer">

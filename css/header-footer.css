@@ -86,6 +86,56 @@
 /* ============================
    |          FOOTER          |
    ============================  */
+.booking {
+  container-type: inline-size;
+  padding-block: 0 3.125rem;
+}
+
+.booking .section__inner {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax( 18.75rem, 1fr ));
+  gap: 2.5rem;
+}
+
+.booking__with {
+  background-color: hsl( 0 0 100% / .3);
+  padding: clamp( 1.875rem, 4cqi, 3.125rem );
+  margin-bottom: 0;
+  display: grid;
+  align-content: space-between;
+  gap: 1.25rem;
+}
+
+.booking__with-item {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.booking__with-item a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .625rem .9375rem;
+  border-radius: .125rem;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  color: #111;
+  font-weight: 600;
+
+  transition: background-color 250ms;
+
+  &:hover {
+    background-color: var(--tertiary-medium);
+  }
+}
+
+.booking__map iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2/1;
+}
+
 #footer {
   container: footer / inline-size;
   padding-block: 0;
