@@ -6,9 +6,17 @@
   padding-block: 0 3.125rem;
 }
 
+.term-description {
+  color: var(--base-color);
+}
+
+.woocommerce-products-header {
+  margin-bottom: 1.875rem;
+}
+
 .gpw-products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 24rem));
   gap: 1.25rem clamp( .75rem, 2.5cqi, 1.25rem );
 }
 
