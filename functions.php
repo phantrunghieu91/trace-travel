@@ -44,3 +44,30 @@ function gpw_change_empty_price($price, $product)
   return $price;
 }
 add_filter('woocommerce_get_price_html', 'gpw_change_empty_price', 10, 2);
+
+function change_flatsome_header_in_woocommerce_category() {
+  remove_action( 'flatsome_after_header', 'flatsome_category_header' );
+  add_action( 'gpw_product_category_before_content', 'flatsome_category_header' );
+}
+add_action( 'init', 'change_flatsome_header_in_woocommerce_category');
+
+function add_sections_after_products_in_woocommerce_category() {
+  get_template_part( 'gpw-templates/woocommerce/category/included' );
+  get_template_part( 'gpw-templates/woocommerce/category/process' );
+}
+add_action( 'flatsome_products_after', 'add_sections_after_products_in_woocommerce_category' );
+
+// add select hero banner field for product categories
+require_once get_stylesheet_directory(  ) . '/inc/wc-category-hero-banner.php';
+WC_Category_Hero_Banner::init();
+
+function add_hero_banner_in_product_category() {
+  if( is_product_category() ) {
+    $term_id = get_queried_object_id(  );
+    $img_id = WC_Category_Hero_Banner::get_image_id( $term_id );
+    if( !empty( $img_id )) {
+      get_template_part( 'gpw-templates/woocommerce/category/hero-section', null, [ 'banner_id' => $img_id ] );
+    }
+  }
+}
+add_action( 'gpw_product_category_before_content', 'add_hero_banner_in_product_category' );
