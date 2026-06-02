@@ -122,7 +122,6 @@
 .product-card {
   --_card-padding: .625rem;
   --_transition-duration: 250ms;
-  --_fixed-height: true;
   --_card-bg-clr: hsl( from #0b0b0b h s l / .6 );
 
   position: relative;
@@ -183,7 +182,6 @@
   --_line-height: 1.4;
   --_padding-block: .625rem;
   --_padding-inline: .9375rem;
-  --_height: calc(var(--_font-size) * var(--_line-height) * var(--_line-clamp) + var(--_padding-block) * 2);
   
   grid-area: img;
   z-index: 2;
@@ -191,7 +189,6 @@
   align-self: end;
   margin-bottom: 0;
   padding: var(--_padding-block) var(--_padding-inline);
-  
 }
 
 .product-card__title a {

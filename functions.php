@@ -52,8 +52,10 @@ function change_flatsome_header_in_woocommerce_category() {
 add_action( 'init', 'change_flatsome_header_in_woocommerce_category');
 
 function add_sections_after_products_in_woocommerce_category() {
-  get_template_part( 'gpw-templates/woocommerce/category/included' );
-  get_template_part( 'gpw-templates/woocommerce/category/process' );
+  if( get_queried_object_id(  ) == 18 ) {
+    get_template_part( 'gpw-templates/woocommerce/category/included' );
+    get_template_part( 'gpw-templates/woocommerce/category/process' );
+  }
 }
 add_action( 'flatsome_products_after', 'add_sections_after_products_in_woocommerce_category' );
 

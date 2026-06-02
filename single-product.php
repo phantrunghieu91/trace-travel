@@ -21,28 +21,6 @@ if (is_a($product, 'WC_Product_Variable')) {
   });
 }
 
-if (in_array(RENTAL_CAT_ID, $category_ids)) {
-  $included_items = [
-    ['img_id' => 2100, 'label' => 'Helmet'],
-    ['img_id' => 2101, 'label' => 'Phone holder'],
-    ['img_id' => 2105, 'label' => '1 liter of fuel'],
-    ['img_id' => 2102, 'label' => 'Bungee cords'],
-    ['img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)'],
-    ['img_id' => 2104, 'label' => 'Google Maps detailed route map'],
-  ];
-} else if (in_array(TOUR_CAT_ID, $category_ids)) {
-  $included_items = [
-    ['img_id' => 2100, 'label' => 'Helmet'],
-    ['img_id' => 2105, 'label' => 'Fuel (Pillion guide)'],
-    ['img_id' => 2174, 'label' => 'Mineral water (500ml/pax)'],
-    ['img_id' => 2175, 'label' => 'Entrance tickets'],
-    ['img_id' => 2176, 'label' => 'English speaking guide'],
-    ['img_id' => 2101, 'label' => 'Phone holder'],
-    ['img_id' => 2102, 'label' => 'Bungee cords'],
-    ['img_id' => 2103, 'label' => 'Luggage Transportation (1 piece of luggage per motorbike)'],
-  ];
-}
-
 $price_table = get_field('price_table');
 
 // Get add on list
@@ -215,7 +193,7 @@ $hero_icons = get_field( 'hero_icons' );
             <?php if (!empty($price_table) && !empty($price_table[0]['rows'])): ?>
               <div
                 class="price-table<?= $price_table[0]['acf_fc_layout'] !== 'two_column' ? ' price-table--first-col-auto' : '' ?>"
-                id="car-type-price" style="<?= '--_cols:' . count($price_table[0]['table_header']) . ';' ?>">
+                id="car-type-price" style="<?= '--_cols:' . count($price_table[0]['table_header']) >= 4 ? 4 : count($price_table[0]['table_header']) . ';' ?>">
                 <div class="price-table__row price-table__row--header">
                   <?php foreach ($price_table[0]['table_header'] as $header): ?>
                     <strong class="price-table__cell price-table__cell--header"><?= esc_html($header) ?></strong>
@@ -234,7 +212,7 @@ $hero_icons = get_field( 'hero_icons' );
             <?php if (!empty($variations)): ?>
               <div class="detail__car-price" id="car-type-price">
                 <strong class="car-price__title"><?= __('Price detail for', 'gpw') ?>   <?= get_the_title(); ?></strong>
-                <div class="car-price__table" style="--_cols: <?= esc_attr(count($variations) + 1) ?>;">
+                <div class="car-price__table" style="--_cols: <?= count( $variations ) > 4 ? 4 : count( $variations ) + 1 ?>;">
                   <div class="table__title">
                     <div class="car-price__option logo">
                       <?= wp_get_attachment_image(get_theme_mod('site_logo'), 'thumbnail', false, array('alt' => 'logo')) ?>
@@ -293,22 +271,7 @@ $hero_icons = get_field( 'hero_icons' );
           </div>
         <?php endif ?>
 
-        <div class="included">
-          <h2 class="included__title">
-            <?= in_array(RENTAL_CAT_ID, $category_ids) ? __('Included in rental price', 'gpw') : __('Included in tour price', 'gpw') ?>:
-          </h2>
-          <div class="included__grid">
-            <?php
-            foreach ($included_items as $item) {
-              echo sprintf(
-                '<div class="included__item">%s<span class="included__item-label">%s</span></div>',
-                wp_get_attachment_image($item['img_id'], 'thumbnail', false, ['class' => 'included__item-icon']),
-                $item['label'],
-              );
-            }
-            ?>
-          </div>
-        </div>
+        <?php get_template_part( 'gpw-templates/woocommerce/single/include-block' ) ?>
 
         <?php if (!empty($faqs)): ?>
           <div class="additional-info__tab-pane" id="faqs">

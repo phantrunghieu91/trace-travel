@@ -22,7 +22,7 @@ $priceHTML = $product->get_price_html();
   <a href="<?= esc_url($url) ?>" class="product-card__thumbnail">
     <?= $product->get_image('medium_large') ?>
   </a>
-  <h4 class="product-card__title line-clamp">
+  <h4 class="product-card__title">
     <a href="<?= $url ?>"><?= $product->get_title(); ?></a>
   </h4>
   <?php if (!empty($shortDesc)): ?>

@@ -496,7 +496,8 @@ html:has(#wpadminbar) .additional-info__nav-tabs {
 .car-price__table {
   --_image-height: 10rem;
   display: grid;
-  grid-template-columns: repeat(var(--_cols, 4), minmax(9.375rem, 1fr));
+  grid-template-columns: 9.375rem;
+  grid-auto-columns: minmax( 12.5rem, 1fr );
   grid-template-rows: var(--_image-height) auto auto;
   gap: .3125rem;
   overflow-x: auto;
