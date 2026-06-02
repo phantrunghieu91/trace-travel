@@ -128,7 +128,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
 
 .featured-trips--grid {
   display: grid;
-  grid-template-columns: repeat(var(--_cols, 1), minmax( 0, 1fr ));
+  grid-template-columns: repeat(var(--_slides-per-view, 1), minmax( 0, 1fr ));
   gap: .625rem;
 }
 
@@ -155,7 +155,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
 
 @container ( width > 550px ) {
   .featured-trips--grid {
-    --_cols: 2;
+    --_slides-per-view: 2;
     gap: 1.25rem;
   }
 }
@@ -167,7 +167,7 @@ section:is(.popular-tours, .be-inspired) .title-of-section {
   }
 
   .featured-trips--grid {
-    --_cols: 3;
+    --_slides-per-view: 3;
   }
 }
 
@@ -296,19 +296,25 @@ html.homepage-gallery-showing {
   }
 }
 
-.motorbikes-list {
-  display: grid;
-  grid-template-columns: repeat(var(--_cols, 1), minmax(0, 1fr));
-  align-items: center;
-  gap: 3.125rem;
+.motorbikes-carousel {
+  --_slides-per-view: 1;
+  --_space-between: 1.25rem;
 
   @container (width > 550px) {
-    --_cols: 2;
+    --_slides-per-view: 2;
   }
 
   @container(width > 850px) {
-    --_cols: 4;
+    --_slides-per-view: 4;
   }
+}
+
+.motorbikes-carousel .swiper-slide {
+  height: auto;
+  width: calc( ( 100% - (var(--_slides-per-view) - 1) * var(--_space-between) ) / var(--_slides-per-view) );
+  margin-right: var(--_space-between);
+  display: grid;
+  place-items: center;
 }
 
 .motorbike {
@@ -435,12 +441,10 @@ html.homepage-gallery-showing {
   }
 }
 
-.motorbike.best-choice, .motorbike:hover {
+.motorbike.best-choice {
   @container ( width > 850px ) {
     --_motorbike-padding-block: 3.125rem 2.5625rem;
     --_motorbike-overlay-top: -1.875rem;
-    --_motorbike-overlay-left: -.625rem;
-    --_motorbike-overlay-width: calc( 100% + var(--_motorbike-overlay-left) * -2 );
     --_motorbike-overlay-height: calc( 100% + var(--_motorbike-overlay-top) * -2 );
   }
 }

@@ -39,6 +39,29 @@ document.addEventListener('DOMContentLoaded', function (docEv) {
     });
   });
 
+  // * motorbikes carousel
+  const motorbikesCarousel = {
+    init() {
+      new Swiper('.motorbikes-carousel .swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        rewind: true,
+        navigation: {
+          nextEl: '.motorbikes-carousel .swiper-button-next',
+          prevEl: '.motorbikes-carousel .swiper-button-prev',
+        },
+        breakpoints: {
+          550: {
+            slidesPerView: 2,
+          },
+          850: {
+            slidesPerView: 4,
+          }
+        }
+      });
+    }
+  }.init();
+
   // * featured trips Tabs
   const featuredTrips = {
     init() {

@@ -2,7 +2,7 @@
 add_action('wp_enqueue_scripts', function () {
   wp_enqueue_style('header-footer', get_stylesheet_directory_uri() . '/css/header-footer.css', [], time(), 'all'); // 1.0.0
   wp_enqueue_style('global', get_stylesheet_directory_uri() . '/css/global.css', [], time(), 'all');
-  wp_enqueue_style( 'material-symbols-outlined', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined', [], null, 'all');
+  wp_enqueue_style( 'material-symbols-outlined', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200', [], null, 'all');
   // Register fancybox for page that need it
   if( is_front_page() || is_singular( 'product' ) ) {
     wp_enqueue_style('fancybox', get_stylesheet_directory_uri(  ) . '/css/fancybox.min.css', [], null, 'all' );
